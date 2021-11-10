@@ -8,8 +8,8 @@ const seasonSummaryFileName = dataDirectory + '/season-summary.txt'
 const outputFileName = dataDirectory + '/draw.svg'
 const mainDrawPhaseName = 'stage_1_playoff'
 const offsets = [{"l":{"l1":{"x1":440,"y1":-45,"x2":440,"y2":1},"l2":{"x1":440,"y1":-22,"x2":620,"y2":-22},"t1":{"x":450,"y":-29},"t2":{"x":450,"y":1}},"r":{"l1":{"x1":-10,"y1":-45,"x2":-10,"y2":1},"l2":{"x1":-10,"y1":-22,"x2":-190,"y2":-22},"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":1}}},{"l":{"l1":{"x1":630,"y1":-45,"x2":630,"y2":60},"l2":{"x1":630,"y1":7,"x2":810,"y2":7},"t1":{"x":640,"y":0},"t2":{"x":640,"y":30}},"r":{"l1":{"x1":-200,"y1":-45,"x2":-200,"y2":60},"l2":{"x1":-200,"y1":7,"x2":-380,"y2":7},"t1":{"x":-380,"y":0},"t2":{"x":-380,"y":30}}},{"l":{"l1":{"x1":820,"y1":-25,"x2":820,"y2":159},"l2":{"x1":820,"y1":67,"x2":1000,"y2":67},"t1":{"x":830,"y":60},"t2":{"x":830,"y":90}},"r":{"l1":{"x1":-390,"y1":-25,"x2":-390,"y2":159},"l2":{"x1":-390,"y1":67,"x2":-570,"y2":67},"t1":{"x":-570,"y":60},"t2":{"x":-570,"y":90}}},{"l":{"l1":{"x1":1010,"y1":30,"x2":1010,"y2":341},"l2":{"x1":1010,"y1":185,"x2":1190,"y2":185},"t1":{"x":1020,"y":178},"t2":{"x":1020,"y":208}},"r":{"l1":{"x1":-580,"y1":30,"x2":-580,"y2":341},"l2":{"x1":-580,"y1":185,"x2":-760,"y2":185},"t1":{"x":-760,"y":178},"t2":{"x":-760,"y":208}}},{"l":{"l1":{"x1":1200,"y1":150,"x2":1200,"y2":696},"l2":{"x1":1200,"y1":423,"x2":1380,"y2":423},"t1":{"x":1210,"y":416},"t2":{"x":1210,"y":446}},"r":{"l1":{"x1":-770,"y1":150,"x2":-770,"y2":696},"l2":{"x1":-770,"y1":423,"x2":-950,"y2":423},"t1":{"x":-950,"y":416},"t2":{"x":-950,"y":446}}}]
-const majorTournaments = {"ao":"Australian Open","rg":"Roland Garros","wi":"Wimbledon","us":"US Open"}
-const eventTitles = {"m":"Men’s Singles","w":"Women’s Singles"}
+const tournaments = {"ao":"Australian Open","rg":"Roland Garros","wi":"Wimbledon","us":"US Open","iw":"Indian Wells"}
+const eventTitles = {"ms":"Men’s Singles","ws":"Women’s Singles"}
 
 // converts the qualificaton path from the API to what we want to display on the draw sheet
 const renderQP = c => {
@@ -23,6 +23,7 @@ const renderQP = c => {
 
 // converts a three digit country code to a flag emoji — reference: https://dev.to/jorik/country-code-to-flag-emoji-a21; possible alternatives are npm packages country-code-emoji and country-flag-emoji
 const getFlagEmoji = ccc => {
+	if (!ccc) return ''
 	if (ccc == 'TPE') return '🇹🇼'	// convert Chinese Taipei to Taiwan
 	const cc = getCountryISO2(ccc)
 	const codePoints = cc
@@ -34,6 +35,7 @@ const getFlagEmoji = ccc => {
 
 // converts a match score from the API to what we want to display on the draw sheet
 const formatScores = (a) => {
+	if (!a.sport_event) return ' '	// bye
 	const winHome = (a.sport_event.competitors.filter(x => x.id == a.sport_event_status.winner_id)[0].qualifier == 'home')	
 	let s = ''
 	if (a.sport_event_status.period_scores) {
@@ -66,7 +68,18 @@ const getResult = (row,round) => {
 }
 
 const renderResult = (z,round,x,y) => {
-	const r = getResult(draw.slice(z, z+Math.pow(2,round)).find(d => d.wins[round-1]),round)
+	const a = draw.filter(d => (d.position > z) && (d.position <= z+Math.pow(2,round)))
+/*
+	if (round == 1) {
+		console.log('round ' + round + ' section ' + z + '-' + z+Math.pow(2,round))
+		a.forEach(aa => {
+			console.log('competitor ' + aa.position + ' ' + aa.name1 + ' ' + aa.wins)
+		})
+	}
+*/
+	const sectionWinner = a.find(aa => aa.wins[round - 1])
+	const r = getResult(sectionWinner,round)
+//	if (round == 1) console.log('section winner ' +  a.position + ' ' + a.name1 + ' ' + a.wins + ' with result ' + r)
 	const o = z < 64 ? offsets[round-1].l : offsets[round-1].r
 	let s = '  <line class="lt" x1="' + (x + o.l1.x1) + '" y1="' + Math.round((y + o.l1.y1)*10)/10 + '" x2="' + (x + o.l1.x2) + '" y2="' + Math.round((y + o.l1.y2)*10)/10 + '"/>\n'
 	s += '  <line class="ln" x1="' + (x + o.l2.x1) + '" y1="' + Math.round((y + o.l2.y1)*10)/10 + '" x2="' + (x + o.l2.x2) + '" y2="' + Math.round((y + o.l2.y2)*10)/10 + '"/>\n'
@@ -98,12 +111,12 @@ if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
 // if there's nothing in local data cache, check that we were supplied all five parameters (argv.length == 7)
 if (process.argv.length < 7 && !(fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName))) {
-	console.log('usage: node index.js ao|rg|wi|us year m|w season_id api_key')
+	console.log('usage: node index.js ao|rg|wi|us year ms|ws season_id api_key')
 	process.exit(1)
 }
 
 // establish titles
-const title1 = process.argv.length > 3 ? majorTournaments[process.argv[2]] + ' ' + process.argv[3] : 'Tournament and Year'	// first and second command line parameter: first line of title, eg "Australian Open 2021"
+const title1 = process.argv.length > 3 ? tournaments[process.argv[2]] + ' ' + process.argv[3] : 'Tournament and Year'	// first and second command line parameter: first line of title, eg "Australian Open 2021"
 const title2 = process.argv.length > 4 ? eventTitles[process.argv[4]] : 'Event'												// third command line parameter: second line of title, eg "Men’s Singles"
 
 // if we already have data cached in local files
@@ -172,7 +185,7 @@ const draw = drawRaw2.map(x => {																	// extract and format just the 
 		'id': x.id,
 		'position': x.bracket_number,
 		'name1': x.name.split(',')[0],
-		'name2': x.name.split(',')[1].trim(),
+		'name2': x.name.split(',').length > 1 ? x.name.split(',')[1].trim() : '',
 		'qualification': renderQP(x),
 		'flag': getFlagEmoji(x.country_code),
 		'wins': []
@@ -181,11 +194,15 @@ const draw = drawRaw2.map(x => {																	// extract and format just the 
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == mainDrawPhaseName)	// we're not interested in the qualifying stage, so just extract results from the main draw stage
 draw.forEach(x => {																					// for each contestant
 	const wins = matchResults.filter(e => e.sport_event_status.winner_id == x.id)					// find any results where they were the winner
+	if (x.name1=='Federer') console.log(wins)
+	if (x.position%8 == 0 || (x.position - 1)%8 == 0) wins.unshift('BYE')							// add a bye 'win'
 	for(let y=1; y<8; y++) {																		// for each result, up to a maximum of seven results
 		x['r'+y] = (wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 		x.wins.push(wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 	}
+//	console.log('wins for ' + x.position + ' ' + x.name1 + ' ' + x.wins)
 })
+console.log('competitors in draw: ' + draw.length)
 
 // start building a string containing the SVG code we want to output
 let s = `<?xml version="1.0" encoding="utf-8"?>
@@ -253,11 +270,13 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
 
 // add the SVG code for the main part of the draw sheet: the contestants names and results for the first five rounds
 let y = 100
-for (let z = 0; z < draw.length; z++) {
-	const line = draw[z]
-	const pClass = textClass(line.qualification) + (z < 64 ? " cp2" : "")
+for (let z = 0; z < 128; z++) {
 	const x = (z < 64 ? 80 : 2430)
-	s += '  <text class="' + pClass + '" x="' + x + '" y="' + y + '">' + formatPosition(z + 1) + ' ' + line.name1.toUpperCase() + ' ' + line.name2 + (line.qualification ? ' (' + line.qualification + ')' : '') + '  <tspan dy="7">' + line.flag + '</tspan></text>\n'
+	const line = draw.find(d => z == d.position - 1)
+	if (line) {
+		const pClass = textClass(line.qualification) + (z < 64 ? " cp2" : "")
+		s += '  <text class="' + pClass + '" x="' + x + '" y="' + y + '">' + formatPosition(z + 1) + ' ' + line.name1.toUpperCase() + ' ' + line.name2 + (line.qualification ? ' (' + line.qualification + ')' : '') + '  <tspan dy="7">' + line.flag + '</tspan></text>\n'
+	}
 	if (z == 63) y = 100
 	else y = Math.round((y + 30.4)*10)/10
 	if (z%2 == 0) s += renderResult(z,1,x,y)
