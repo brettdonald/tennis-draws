@@ -27,6 +27,6 @@ Download the code and install the packages upon which it depends
 
 Executing the code requires five parameters as follows:
 
-    node index.js ao|rg|wi|us|iw year m|w season_id api_key
+    node index.js ao|rg|wi|us|iw year ms|ws season_id api_key
 
 The first three parameters are used to generate the title lines rendered into graphic. The fourth and fifth parameters are used to call the API.
