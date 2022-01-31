@@ -99,7 +99,7 @@ const textClass = (qualification,round = 1) => {
 // returns today's date and time in our desired display format
 const getAsAt = () => {
 	const d = new Date()
-	return d.toLocaleString("en-AU", { weekday: "long", hour12: false, hour: "2-digit", minute: "2-digit" })
+	return d.toLocaleString("en-AU", { weekday: "long", hour12: false, hour: "2-digit", minute: "2-digit", timeZone: "UTC" })
 }
 
 // main logic begins
@@ -111,13 +111,13 @@ if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
 // if there's nothing in local data cache, check that we were supplied all five parameters (argv.length == 7)
 if (process.argv.length < 7 && !(fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName))) {
-	console.log('usage: node index.js ao|rg|wi|us year ms|ws season_id api_key')
+	console.log('usage: node index.js ao|rg|wi|us|iw year ms|ws season_id api_key')
 	process.exit(1)
 }
 
 // establish titles
 const title1 = process.argv.length > 3 ? tournaments[process.argv[2]] + ' ' + process.argv[3] : 'Tournament and Year'	// first and second command line parameter: first line of title, eg "Australian Open 2021"
-const title2 = process.argv.length > 4 ? eventTitles[process.argv[4]] : 'Event'												// third command line parameter: second line of title, eg "Men’s Singles"
+const title2 = process.argv.length > 4 ? eventTitles[process.argv[4]] : 'Event'											// third command line parameter: second line of title, eg "Men’s Singles"
 
 // if we already have data cached in local files
 if (process.argv.length < 7) {
@@ -178,24 +178,38 @@ if (!seasonInfoData.stages) {
 }
 
 // process the raw data into a format which is easy to work with
+let draw = []
 const drawRaw1 = seasonInfoData.stages.find(x => x.phase == mainDrawPhaseName)						// we're not interested in the qualifying stage, so just extract the main draw stage
-const drawRaw2 = drawRaw1.groups[0].competitors.sort((a,b) => a.bracket_number - b.bracket_number)	// sort the competitors by their 'bracket number', or position on the draw sheet
-const draw = drawRaw2.map(x => {																	// extract and format just the data we want to display
-	return {
-		'id': x.id,
-		'position': x.bracket_number,
-		'name1': x.name.split(',')[0],
-		'name2': x.name.split(',').length > 1 ? x.name.split(',')[1].trim() : '',
-		'qualification': renderQP(x),
-		'flag': getFlagEmoji(x.country_code),
-		'wins': []
-	}
-})
+if (drawRaw1) {
+	const drawRaw2 = drawRaw1.groups[0].competitors.sort((a,b) => a.bracket_number - b.bracket_number)	// sort the competitors by their 'bracket number', or position on the draw sheet
+	draw = drawRaw2.map(x => {																		// extract and format just the data we want to display
+		return {
+			'id': x.id,
+			'position': x.bracket_number,
+			'name1': x.name.split(',')[0],
+			'name2': x.name.split(',').length > 1 ? x.name.split(',')[1].trim() : '',
+			'qualification': renderQP(x),
+			'flag': getFlagEmoji(x.country_code),
+			'wins': []
+		}
+	})
+}
+for (let i=0; i<128; i++) {
+	if (draw.length <= i || draw[i].position != i+1)
+		draw.push({
+			'id': null,
+			'position': i + 1,
+			'name1': 'Qualifier',
+			'name2': '',
+			'qualification': '',
+			'flag': '',
+			'wins': []
+		})
+}
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == mainDrawPhaseName)	// we're not interested in the qualifying stage, so just extract results from the main draw stage
 draw.forEach(x => {																					// for each contestant
-	const wins = matchResults.filter(e => e.sport_event_status.winner_id == x.id)					// find any results where they were the winner
-	if (x.name1=='Federer') console.log(wins)
-	if (x.position%8 == 0 || (x.position - 1)%8 == 0) wins.unshift('BYE')							// add a bye 'win'
+	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
+//	if (x.position%8 == 0 || (x.position - 1)%8 == 0) wins.unshift('BYE')							// add a bye 'win'
 	for(let y=1; y<8; y++) {																		// for each result, up to a maximum of seven results
 		x['r'+y] = (wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 		x.wins.push(wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
@@ -265,7 +279,7 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
   <text class="p3" x="1470" y="110">${title1}</text>
   <text class="p3" x="1470" y="150">${title2}</text>
   <text class="p4" x="1470" y="1000">🏆</text>
-  <text class="p5" x="1470" y="2010">as at ${getAsAt()}</text>
+  <text class="p5" x="1470" y="2010">as at ${getAsAt()} UTC</text>
 `
 
 // add the SVG code for the main part of the draw sheet: the contestants names and results for the first five rounds
