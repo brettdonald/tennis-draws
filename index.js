@@ -3,13 +3,182 @@ import fetch from 'node-fetch'
 import getCountryISO2 from 'country-iso-3-to-2'
 
 const dataDirectory = './data'
+const parametersFileName = dataDirectory + '/parameters.txt'
 const seasonInfoFileName = dataDirectory + '/season-info.txt'
 const seasonSummaryFileName = dataDirectory + '/season-summary.txt'
 const outputFileName = dataDirectory + '/draw.svg'
 const mainDrawPhaseName = 'stage_1_playoff'
 const offsets = [{"l":{"l1":{"x1":440,"y1":-45,"x2":440,"y2":1},"l2":{"x1":440,"y1":-22,"x2":620,"y2":-22},"t1":{"x":450,"y":-29},"t2":{"x":450,"y":1}},"r":{"l1":{"x1":-10,"y1":-45,"x2":-10,"y2":1},"l2":{"x1":-10,"y1":-22,"x2":-190,"y2":-22},"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":1}}},{"l":{"l1":{"x1":630,"y1":-45,"x2":630,"y2":60},"l2":{"x1":630,"y1":7,"x2":810,"y2":7},"t1":{"x":640,"y":0},"t2":{"x":640,"y":30}},"r":{"l1":{"x1":-200,"y1":-45,"x2":-200,"y2":60},"l2":{"x1":-200,"y1":7,"x2":-380,"y2":7},"t1":{"x":-380,"y":0},"t2":{"x":-380,"y":30}}},{"l":{"l1":{"x1":820,"y1":-25,"x2":820,"y2":159},"l2":{"x1":820,"y1":67,"x2":1000,"y2":67},"t1":{"x":830,"y":60},"t2":{"x":830,"y":90}},"r":{"l1":{"x1":-390,"y1":-25,"x2":-390,"y2":159},"l2":{"x1":-390,"y1":67,"x2":-570,"y2":67},"t1":{"x":-570,"y":60},"t2":{"x":-570,"y":90}}},{"l":{"l1":{"x1":1010,"y1":30,"x2":1010,"y2":341},"l2":{"x1":1010,"y1":185,"x2":1190,"y2":185},"t1":{"x":1020,"y":178},"t2":{"x":1020,"y":208}},"r":{"l1":{"x1":-580,"y1":30,"x2":-580,"y2":341},"l2":{"x1":-580,"y1":185,"x2":-760,"y2":185},"t1":{"x":-760,"y":178},"t2":{"x":-760,"y":208}}},{"l":{"l1":{"x1":1200,"y1":150,"x2":1200,"y2":696},"l2":{"x1":1200,"y1":423,"x2":1380,"y2":423},"t1":{"x":1210,"y":416},"t2":{"x":1210,"y":446}},"r":{"l1":{"x1":-770,"y1":150,"x2":-770,"y2":696},"l2":{"x1":-770,"y1":423,"x2":-950,"y2":423},"t1":{"x":-950,"y":416},"t2":{"x":-950,"y":446}}}]
-const tournaments = {"ao":"Australian Open","rg":"Roland Garros","wi":"Wimbledon","us":"US Open","iw":"Indian Wells"}
+const tournaments = {
+	"ao": {
+		"title": "Australian Open",
+		"draw": 128,
+		"competitions": {
+			"ms" : "sr:competition:2567",	// competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
+			"ws" : "sr:competition:2571",
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:63591",	// season IDs are available from the Competition Seasons endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons)
+				"ws" : "sr:season:63593",
+			},
+			"2021": {
+				"ms" : "sr:season:75673",
+				"ws" : "sr:season:75675",
+			},
+			"2022": {
+				"ms" : "sr:season:81706",
+				"ws" : "sr:season:81708",
+			},
+		},
+	},
+	"iw": {
+		"title": "Indian Wells",
+		"draw": 96,
+		"competitions": {
+			"ms" : "sr:competition:2739",
+			"ws" : "sr:competition:4589",
+		},
+		"seasons": {
+			"2021": {
+				"ms" : "sr:season:80554",
+				"ws" : "sr:season:80888",
+			},
+			"2022": {
+				"ms" : "sr:season:89081",
+				"ws" : "sr:season:89389",
+			},
+		},
+	},
+	"mi": {
+		"title": "Miami",
+		"draw": 96,
+		"competitions": {
+			"ms" : "sr:competition:2745",
+			"ws" : "sr:competition:4691",
+		},
+		"seasons": {
+			"2021": {
+				"ms" : "sr:season:80436",
+				"ws" : "sr:season:80892",
+			},
+			"2022": {
+				"ms" : "sr:season:89085",
+				"ws" : "sr:season:89393",
+			},
+		},
+	},
+	"ma": {
+		"title": "Madrid",
+		"draw": 56,
+		"competitions": {
+			"ms" : "sr:competition:2787",
+			"ws" : "sr:competition:4925",
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:73923",
+				"ws" : "sr:season:73529",
+			},
+			"2021": {
+				"ms" : "sr:season:80658",
+				"ws" : "sr:season:80912",
+			},
+			"2022": {
+				"ms" : "sr:season:89003",
+				"ws" : "sr:season:89415",
+			},
+		},
+	},
+	"ro": {
+		"title": "Rome",
+		"draw": 56,
+		"competitions": {
+			"ms" : "sr:competition:2781",
+			"ws" : "sr:competition:4775",
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:73999",
+				"ws" : "sr:season:73603",
+			},
+			"2021": {
+				"ms" : "sr:season:80662",
+				"ws" : "sr:season:80834",
+			},
+			"2022": {
+				"ms" : "sr:season:89007",
+				"ws" : "sr:season:89419",
+			},
+		},
+	},
+	"rg": {
+		"title": "Roland-Garros",
+		"draw": 128,
+		"competitions": {
+			"ms" : "sr:competition:2579",
+			"ws" : "sr:competition:2583",
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:68019",
+				"ws" : "sr:season:68021",
+			},
+			"2021": {
+				"ms" : "sr:season:79241",
+				"ws" : "sr:season:79267",
+			},
+		},
+	},
+	"wi": {
+		"title": "Wimbledon",
+		"draw": 128,
+		"competitions": {
+			"ms" : "sr:competition:2555",
+			"ws" : "sr:competition:2559",
+		},
+		"seasons": {
+			"2021": {
+				"ms" : "sr:season:76843",
+				"ws" : "sr:season:76845",
+			},
+		},
+	},
+	"us": {
+		"title": "US Open",
+		"draw": 128,
+		"competitions": {
+			"ms" : "sr:competition:2591",
+			"ws" : "sr:competition:2595",
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:71054",
+				"ws" : "sr:season:71056",
+			},
+			"2021": {
+				"ms" : "sr:season:78537",
+				"ws" : "sr:season:78539",
+			},
+		},
+	},
+}
 const eventTitles = {"ms":"Men’s Singles","ws":"Women’s Singles"}
+
+// pauses execution for a specified time
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// reconstructs array of command line parameters into an object
+const reconstructParameters = a => {
+	return {
+		"tournament": a[0],
+		"year": a[1],
+		"event": a[2],
+		"apiKey": a[3],
+	}
+}
 
 // converts the qualificaton path from the API to what we want to display on the draw sheet
 const renderQP = c => {
@@ -103,25 +272,23 @@ const getAsAt = () => {
 }
 
 // main logic begins
+let parameterData = null
 let seasonInfoData = null
 let seasonSummaryData = null
+let seasonSummaryDataB = null
 
 // create a data directory if it doesn't exist already
 if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
-// if there's nothing in local data cache, check that we were supplied all five parameters (argv.length == 7)
-if (process.argv.length < 7 && !(fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName))) {
-	console.log('usage: node index.js ao|rg|wi|us|iw year ms|ws season_id api_key')
+// if we don't have a complete local data cache, check that we were supplied all four parameters (argv.length == 6)
+if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName)) && process.argv.length < 6) {
+	console.log('usage: node index.js ao|rg|wi|us year ms|ws api_key')
 	process.exit(1)
 }
 
-// establish titles
-const title1 = process.argv.length > 3 ? tournaments[process.argv[2]] + ' ' + process.argv[3] : 'Tournament and Year'	// first and second command line parameter: first line of title, eg "Australian Open 2021"
-const title2 = process.argv.length > 4 ? eventTitles[process.argv[4]] : 'Event'											// third command line parameter: second line of title, eg "Men’s Singles"
-
-// if we already have data cached in local files
-if (process.argv.length < 7) {
+if (process.argv.length < 6) {
 	// read the data from local cache
+	parameterData = JSON.parse(fs.readFileSync(parametersFileName))
 	seasonInfoData = JSON.parse(fs.readFileSync(seasonInfoFileName))
 	seasonSummaryData = JSON.parse(fs.readFileSync(seasonSummaryFileName))
 	console.log('data read from cache')
@@ -132,11 +299,20 @@ else {
 		A *competition season* is an individual occurrence of an event, eg "Australian Open Women Singles 2020"
 	*/
 
+	// reconstruct the input parameters as an object and write to cache
+	parameterData = reconstructParameters(process.argv.slice(2))
+	try {
+		fs.writeFileSync(parametersFileName, JSON.stringify(parameterData))		// cache the parameter data in a local file
+		console.log('parameters cached')
+	}
+	catch(e) { 
+		console.log('error writing parameters: ' + e)
+	}
+
 	// prepare to access data from the API
-	const seasonId = process.argv[5]	// fourth command line parameter (available from Competition Seasons endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons)
-	const apiKey = process.argv[6]		// fifth command line parameter
-	const seasonInfoEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/info.json?api_key=${apiKey}` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-info
-	const seasonSummaryEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/summaries.json?api_key=${apiKey}&limit=125` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-summaries
+	const seasonId = tournaments[parameterData.tournament].seasons[parameterData.year][parameterData.event]
+	const seasonInfoEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/info.json?api_key=${parameterData.apiKey}` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-info
+	const seasonSummaryEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/summaries.json?api_key=${parameterData.apiKey}&limit=125` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-summaries
 
 	// fetch season info data (the draw)
 	const r1 = await fetch(seasonInfoEP)
@@ -150,15 +326,32 @@ else {
 		console.log('error writing season info: ' + e)
 	}
 
+	await sleep(1000)
+	
 	// fetch season summary data (the results)
 	const r2 = await fetch(seasonSummaryEP + '&start=0')	// the first half of the results - major tournaments have 112 matches in qualifying and 127 matches in the main draw, a total of 239 matches. The API returns a maximum of 200 results at a time, so we ask for two batches of 125 results each.
-	console.log(r2.ok ? 'season summary A fetched' : 'error fetching season summary A: ' + r2.statusText)
-	seasonSummaryData = await r2.json()
+	if (r2.ok) {
+		console.log('season summary A fetched')
+		seasonSummaryData = await r2.json()
+	}
+	else {
+		const errorBody = await r2.text()
+		console.log('error fetching season summary A: ' + r2.statusText + '\n' + errorBody)
+	}
+	
+	await sleep(1000)
+
 	const r3 = await fetch(seasonSummaryEP + '&start=125')	// the second half of the results
-	console.log(r3.ok ? 'season summary B fetched' : 'error fetching season summary B: ' + r3.statusText)
-	const d1 = await r3.json()
-	seasonSummaryData.summaries = seasonSummaryData.summaries.concat(d1.summaries)		// join the halves together
+	if (r3.ok) {
+		console.log('season summary B fetched')
+		seasonSummaryDataB = await r3.json()
+	}
+	else {
+		const errorBody = await r3.text()
+		console.log('error fetching season summary B: ' + r3.statusText + '\n' + errorBody)
+	}
 	try {
+		seasonSummaryData.summaries = seasonSummaryData.summaries.concat(seasonSummaryDataB.summaries)		// join the halves together
 		fs.writeFileSync(seasonSummaryFileName, JSON.stringify(seasonSummaryData))		// cache the season summary data in a local file
 		console.log('season summary cached')
 	}
@@ -176,6 +369,12 @@ if (!seasonInfoData.stages) {
 	console.log('no stages')
 	process.exit(1)
 }
+
+const tournament = tournaments[parameterData.tournament]
+
+// establish titles
+const title1 = tournament.title + ' ' + parameterData.year											// first line of title, eg "Australian Open 2021"
+const title2 = eventTitles[parameterData.event]														// second line of title, eg "Men’s Singles"
 
 // process the raw data into a format which is easy to work with
 let draw = []
@@ -209,7 +408,7 @@ for (let i=0; i<128; i++) {
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == mainDrawPhaseName)	// we're not interested in the qualifying stage, so just extract results from the main draw stage
 draw.forEach(x => {																					// for each contestant
 	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
-//	if (x.position%8 == 0 || (x.position - 1)%8 == 0) wins.unshift('BYE')							// add a bye 'win'
+	if (tournament.draw > 64 && tournament.draw < 128 && (x.position%8 == 0 || (x.position - 1)%8 == 0)) wins.unshift('BYE')	// add a bye 'win'
 	for(let y=1; y<8; y++) {																		// for each result, up to a maximum of seven results
 		x['r'+y] = (wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 		x.wins.push(wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
