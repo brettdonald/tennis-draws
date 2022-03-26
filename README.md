@@ -12,19 +12,19 @@ Executing the code requires four parameters as follows:
 
     node index.js tournament_code year event_code api_key
 
-Valid values for tournament_code:
+Valid values for `tournament_code`:
 
-* ao	Australian Open
-* rg	Roland-Garros
-* wi	Wimbledon
-* us	US Open
-* iw	Indian Wells
-* mi	Miami Open
+* __ao__ — Australian Open
+* __rg__ — Roland-Garros
+* __wi__ — Wimbledon
+* __us__ — US Open
+* __iw__ — Indian Wells
+* __mi__ — Miami Open
 
-Valid values for event_code:
+Valid values for `event_code`:
 
-* ms	Men’s Singles
-* ws	Women’s Singles
+* __ms__ — Men’s Singles
+* __ws__ — Women’s Singles
 
 The code embeds Sportradar’s identifiers for recent tournaments. If you want to extend the code to include additional tournaments/events, you’ll need to add __season__ identifiers to the code. 
 In the Sportradar API, a __competition__ is an event at a tournament, eg "Australian Open Women’s Singles", and a __season__ is an individual occurrence of an event, eg "Australian Open Women’s Singles 2022".
