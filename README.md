@@ -8,11 +8,24 @@ Download the code and install the packages upon which it depends:
 
     npm install
 
-Executing the code requires five parameters as follows:
+Executing the code requires four parameters as follows:
 
-    node index.js ao|rg|wi|us|iw|mi year ms|ws api_key
+    node index.js tournament_code year event_code api_key
 
-The code embeds Sportradar’s identifiers for recent tournaments.
+Valid values for tournament_code:
 
-If you want to extend the code to include additional tournaments/events, you’ll need to add __season__ identifiers to the code. 
-In the Sportradar API, a __competition__ is an event at a tournament, eg "Australian Open Women’s Singles", and a __season__ is an individual occurrence of an event, eg "Australian Open Women’s Singles 2022". You can call the API endpoints [Competitions](https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions) and [Competition Seasons](https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons) to discover season identifiers.
+* ao	Australian Open
+* rg	Roland-Garros
+* wi	Wimbledon
+* us	US Open
+* iw	Indian Wells
+* mi	Miami Open
+
+Valid values for event_code:
+
+* ms	Men’s Singles
+* ws	Women’s Singles
+
+The code embeds Sportradar’s identifiers for recent tournaments. If you want to extend the code to include additional tournaments/events, you’ll need to add __season__ identifiers to the code. 
+In the Sportradar API, a __competition__ is an event at a tournament, eg "Australian Open Women’s Singles", and a __season__ is an individual occurrence of an event, eg "Australian Open Women’s Singles 2022".
+You can call the API endpoints [Competitions](https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions) and [Competition Seasons](https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons) to discover season identifiers.
