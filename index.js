@@ -8,14 +8,22 @@ const seasonInfoFileName = dataDirectory + '/season-info.txt'
 const seasonSummaryFileName = dataDirectory + '/season-summary.txt'
 const outputFileName = dataDirectory + '/draw.svg'
 const mainDrawPhaseName = 'stage_1_playoff'
-const offsets = [{"l":{"l1":{"x1":440,"y1":-45,"x2":440,"y2":1},"l2":{"x1":440,"y1":-22,"x2":620,"y2":-22},"t1":{"x":450,"y":-29},"t2":{"x":450,"y":1}},"r":{"l1":{"x1":-10,"y1":-45,"x2":-10,"y2":1},"l2":{"x1":-10,"y1":-22,"x2":-190,"y2":-22},"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":1}}},{"l":{"l1":{"x1":630,"y1":-45,"x2":630,"y2":60},"l2":{"x1":630,"y1":7,"x2":810,"y2":7},"t1":{"x":640,"y":0},"t2":{"x":640,"y":30}},"r":{"l1":{"x1":-200,"y1":-45,"x2":-200,"y2":60},"l2":{"x1":-200,"y1":7,"x2":-380,"y2":7},"t1":{"x":-380,"y":0},"t2":{"x":-380,"y":30}}},{"l":{"l1":{"x1":820,"y1":-25,"x2":820,"y2":159},"l2":{"x1":820,"y1":67,"x2":1000,"y2":67},"t1":{"x":830,"y":60},"t2":{"x":830,"y":90}},"r":{"l1":{"x1":-390,"y1":-25,"x2":-390,"y2":159},"l2":{"x1":-390,"y1":67,"x2":-570,"y2":67},"t1":{"x":-570,"y":60},"t2":{"x":-570,"y":90}}},{"l":{"l1":{"x1":1010,"y1":30,"x2":1010,"y2":341},"l2":{"x1":1010,"y1":185,"x2":1190,"y2":185},"t1":{"x":1020,"y":178},"t2":{"x":1020,"y":208}},"r":{"l1":{"x1":-580,"y1":30,"x2":-580,"y2":341},"l2":{"x1":-580,"y1":185,"x2":-760,"y2":185},"t1":{"x":-760,"y":178},"t2":{"x":-760,"y":208}}},{"l":{"l1":{"x1":1200,"y1":150,"x2":1200,"y2":696},"l2":{"x1":1200,"y1":423,"x2":1380,"y2":423},"t1":{"x":1210,"y":416},"t2":{"x":1210,"y":446}},"r":{"l1":{"x1":-770,"y1":150,"x2":-770,"y2":696},"l2":{"x1":-770,"y1":423,"x2":-950,"y2":423},"t1":{"x":-950,"y":416},"t2":{"x":-950,"y":446}}}]
+const offsets = {
+	"32":[],
+	"64":[{"l":{"l1":{"x1":500,"y1":-45,"x2":500,"y2":1},"l2":{"x1":500,"y1":-22,"x2":800,"y2":-22},"t1":{"x":510,"y":-29},"t2":{"x":510,"y":1}}},{"l":{"l1":{"x1":810,"y1":-45,"x2":810,"y2":60},"l2":{"x1":810,"y1":7,"x2":1110,"y2":7},"t1":{"x":820,"y":0},"t2":{"x":820,"y":30}}},{"l":{"l1":{"x1":1120,"y1":-25,"x2":1120,"y2":159},"l2":{"x1":1120,"y1":67,"x2":1420,"y2":67},"t1":{"x":1130,"y":60},"t2":{"x":1130,"y":90}}},{"l":{"l1":{"x1":1430,"y1":30,"x2":1430,"y2":341},"l2":{"x1":1430,"y1":185,"x2":1730,"y2":185},"t1":{"x":1440,"y":178},"t2":{"x":1440,"y":208}}},{"l":{"l1":{"x1":1740,"y1":150,"x2":1740,"y2":696},"l2":{"x1":1740,"y1":423,"x2":2040,"y2":423},"t1":{"x":1750,"y":416},"t2":{"x":1750,"y":446}}},{"l":{"l1":{"x1":2050,"y1":388,"x2":2050,"y2":1430},"l2":{"x1":2050,"y1":920,"x2":2350,"y2":920},"t1":{"x":2060,"y":913},"t2":{"x":2060,"y":943}}}],
+	"128":[{"l":{"l1":{"x1":440,"y1":-45,"x2":440,"y2":1},"l2":{"x1":440,"y1":-22,"x2":620,"y2":-22},"t1":{"x":450,"y":-29},"t2":{"x":450,"y":1}},"r":{"l1":{"x1":-10,"y1":-45,"x2":-10,"y2":1},"l2":{"x1":-10,"y1":-22,"x2":-190,"y2":-22},"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":1}}},{"l":{"l1":{"x1":630,"y1":-45,"x2":630,"y2":60},"l2":{"x1":630,"y1":7,"x2":810,"y2":7},"t1":{"x":640,"y":0},"t2":{"x":640,"y":30}},"r":{"l1":{"x1":-200,"y1":-45,"x2":-200,"y2":60},"l2":{"x1":-200,"y1":7,"x2":-380,"y2":7},"t1":{"x":-380,"y":0},"t2":{"x":-380,"y":30}}},{"l":{"l1":{"x1":820,"y1":-25,"x2":820,"y2":159},"l2":{"x1":820,"y1":67,"x2":1000,"y2":67},"t1":{"x":830,"y":60},"t2":{"x":830,"y":90}},"r":{"l1":{"x1":-390,"y1":-25,"x2":-390,"y2":159},"l2":{"x1":-390,"y1":67,"x2":-570,"y2":67},"t1":{"x":-570,"y":60},"t2":{"x":-570,"y":90}}},{"l":{"l1":{"x1":1010,"y1":30,"x2":1010,"y2":341},"l2":{"x1":1010,"y1":185,"x2":1190,"y2":185},"t1":{"x":1020,"y":178},"t2":{"x":1020,"y":208}},"r":{"l1":{"x1":-580,"y1":30,"x2":-580,"y2":341},"l2":{"x1":-580,"y1":185,"x2":-760,"y2":185},"t1":{"x":-760,"y":178},"t2":{"x":-760,"y":208}}},{"l":{"l1":{"x1":1200,"y1":150,"x2":1200,"y2":696},"l2":{"x1":1200,"y1":423,"x2":1380,"y2":423},"t1":{"x":1210,"y":416},"t2":{"x":1210,"y":446}},"r":{"l1":{"x1":-770,"y1":150,"x2":-770,"y2":696},"l2":{"x1":-770,"y1":423,"x2":-950,"y2":423},"t1":{"x":-950,"y":416},"t2":{"x":-950,"y":446}}}]}
 const tournaments = {
 	"ao": {
 		"title": "Australian Open",
-		"draw": 128,
 		"competitions": {
-			"ms" : "sr:competition:2567",	// competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
-			"ws" : "sr:competition:2571",
+			"ms" : {
+				id: "sr:competition:2567",	// competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
+				draw: 128,
+			},
+			"ws" : {
+				id: "sr:competition:2571",
+				draw: 128,
+			},
 		},
 		"seasons": {
 			"2020": {
@@ -34,10 +42,15 @@ const tournaments = {
 	},
 	"iw": {
 		"title": "Indian Wells",
-		"draw": 96,
 		"competitions": {
-			"ms" : "sr:competition:2739",
-			"ws" : "sr:competition:4589",
+			"ms" : {
+				id: "sr:competition:2739",
+				draw: 96,
+			},
+			"ws" : {
+				id: "sr:competition:4589",
+				draw: 96,
+			},
 		},
 		"seasons": {
 			"2021": {
@@ -52,10 +65,15 @@ const tournaments = {
 	},
 	"mi": {
 		"title": "Miami",
-		"draw": 96,
 		"competitions": {
-			"ms" : "sr:competition:2745",
-			"ws" : "sr:competition:4691",
+			"ms" : {
+				id: "sr:competition:2745",
+				draw: 96,
+			},
+			"ws" : {
+				id: "sr:competition:4691",
+				draw: 96,
+			},
 		},
 		"seasons": {
 			"2021": {
@@ -70,10 +88,15 @@ const tournaments = {
 	},
 	"ma": {
 		"title": "Madrid",
-		"draw": 56,
 		"competitions": {
-			"ms" : "sr:competition:2787",
-			"ws" : "sr:competition:4925",
+			"ms" : {
+				id: "sr:competition:2787",
+				draw: 56,
+			},
+			"ws" : {
+				id: "sr:competition:4925",
+				draw: 64,
+			},
 		},
 		"seasons": {
 			"2020": {
@@ -92,10 +115,15 @@ const tournaments = {
 	},
 	"ro": {
 		"title": "Rome",
-		"draw": 56,
 		"competitions": {
-			"ms" : "sr:competition:2781",
-			"ws" : "sr:competition:4775",
+			"ms" : {
+				id: "sr:competition:2781",
+				draw: 56,
+			},
+			"ws" : {
+				id: "sr:competition:4775",
+				draw: 56,
+			},
 		},
 		"seasons": {
 			"2020": {
@@ -114,10 +142,15 @@ const tournaments = {
 	},
 	"rg": {
 		"title": "Roland-Garros",
-		"draw": 128,
 		"competitions": {
-			"ms" : "sr:competition:2579",
-			"ws" : "sr:competition:2583",
+			"ms" : {
+				id: "sr:competition:2579",
+				draw: 128,
+			},
+			"ws" : {
+				id: "sr:competition:2583",
+				draw: 128,
+			},
 		},
 		"seasons": {
 			"2020": {
@@ -132,10 +165,15 @@ const tournaments = {
 	},
 	"wi": {
 		"title": "Wimbledon",
-		"draw": 128,
 		"competitions": {
-			"ms" : "sr:competition:2555",
-			"ws" : "sr:competition:2559",
+			"ms" : {
+				id: "sr:competition:2555",
+				draw: 128,
+			},
+			"ws" : {
+				id: "sr:competition:2559",
+				draw: 128,
+			},
 		},
 		"seasons": {
 			"2021": {
@@ -146,10 +184,15 @@ const tournaments = {
 	},
 	"us": {
 		"title": "US Open",
-		"draw": 128,
 		"competitions": {
-			"ms" : "sr:competition:2591",
-			"ws" : "sr:competition:2595",
+			"ms" : {
+				id: "sr:competition:2591",
+				draw: 128,
+			},
+			"ws" : {
+				id: "sr:competition:2595",
+				draw: 128,
+			},
 		},
 		"seasons": {
 			"2020": {
@@ -177,6 +220,7 @@ const reconstructParameters = a => {
 		"year": a[1],
 		"event": a[2],
 		"apiKey": a[3],
+		"showTimestamp": a.length>4 && (a[4]=='n') ? false : true,
 	}
 }
 
@@ -238,18 +282,9 @@ const getResult = (row,round) => {
 
 const renderResult = (z,round,x,y) => {
 	const a = draw.filter(d => (d.position > z) && (d.position <= z+Math.pow(2,round)))
-/*
-	if (round == 1) {
-		console.log('round ' + round + ' section ' + z + '-' + z+Math.pow(2,round))
-		a.forEach(aa => {
-			console.log('competitor ' + aa.position + ' ' + aa.name1 + ' ' + aa.wins)
-		})
-	}
-*/
 	const sectionWinner = a.find(aa => aa.wins[round - 1])
 	const r = getResult(sectionWinner,round)
-//	if (round == 1) console.log('section winner ' +  a.position + ' ' + a.name1 + ' ' + a.wins + ' with result ' + r)
-	const o = z < 64 ? offsets[round-1].l : offsets[round-1].r
+	const o = z < 64 ? offsets[positions][round-1].l : offsets[positions][round-1].r
 	let s = '  <line class="lt" x1="' + (x + o.l1.x1) + '" y1="' + Math.round((y + o.l1.y1)*10)/10 + '" x2="' + (x + o.l1.x2) + '" y2="' + Math.round((y + o.l1.y2)*10)/10 + '"/>\n'
 	s += '  <line class="ln" x1="' + (x + o.l2.x1) + '" y1="' + Math.round((y + o.l2.y1)*10)/10 + '" x2="' + (x + o.l2.x2) + '" y2="' + Math.round((y + o.l2.y2)*10)/10 + '"/>\n'
 	if (r) {
@@ -268,7 +303,7 @@ const textClass = (qualification,round = 1) => {
 // returns today's date and time in our desired display format
 const getAsAt = () => {
 	const d = new Date()
-	return d.toLocaleString("en-AU", { weekday: "long", hour12: false, hour: "2-digit", minute: "2-digit", timeZone: "UTC" })
+	return d.toLocaleString('en-AU', { weekday: 'long', day: 'numeric', month: 'short', hourCycle: 'h23', hour: '2-digit', minute: '2-digit', timeZoneName: 'short', timeZone: 'UTC' })
 }
 
 // main logic begins
@@ -280,24 +315,32 @@ let seasonSummaryDataB = null
 // create a data directory if it doesn't exist already
 if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
-// if we don't have a complete local data cache, check that we were supplied all four parameters (argv.length == 6)
+// if we don't have a complete local data cache, check that we were supplied at least four parameters (argv.length == 6)
 if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName)) && process.argv.length < 6) {
-	console.log('usage: node index.js ao|rg|wi|us year ms|ws api_key')
+	console.log('usage: node index.js tournament_code year event_code api_key [show_timestamp]')
 	process.exit(1)
 }
 
 if (process.argv.length < 6) {
 	// read the data from local cache
 	parameterData = JSON.parse(fs.readFileSync(parametersFileName))
+	parameterData.showTimestamp = false
 	seasonInfoData = JSON.parse(fs.readFileSync(seasonInfoFileName))
 	seasonSummaryData = JSON.parse(fs.readFileSync(seasonSummaryFileName))
-	console.log('data read from cache')
+	console.log('data read from local cache' + (process.argv.length > 2 ? ' (parameters were ignored)' : ''))
 }
 else {
-	/*	Important definitions from the SportRadar Tennis v3 API (https://developer.sportradar.com/)
+	/*	read the data from the Sportradar Tennis v3 API (https://developer.sportradar.com/)
+	
+		Important definitions from the API:
 		A *competition* is an event at a tournament, eg "Australian Open Women Singles"
 		A *competition season* is an individual occurrence of an event, eg "Australian Open Women Singles 2020"
 	*/
+
+	// clear the local data cache
+	if (fs.existsSync(parametersFileName)) fs.unlinkSync(parametersFileName)
+	if (fs.existsSync(seasonInfoFileName)) fs.unlinkSync(seasonInfoFileName)
+	if (fs.existsSync(seasonSummaryFileName)) fs.unlinkSync(seasonSummaryFileName)
 
 	// reconstruct the input parameters as an object and write to cache
 	parameterData = reconstructParameters(process.argv.slice(2))
@@ -310,7 +353,14 @@ else {
 	}
 
 	// prepare to access data from the API
-	const seasonId = tournaments[parameterData.tournament].seasons[parameterData.year][parameterData.event]
+	let seasonId = null
+	try {
+		seasonId = tournaments[parameterData.tournament].seasons[parameterData.year][parameterData.event]
+	}
+	catch(e) {
+		console.log('unable to locate tournament details for the supplied tournament_code, year and event_code')
+		process.exit(1)
+	}
 	const seasonInfoEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/info.json?api_key=${parameterData.apiKey}` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-info
 	const seasonSummaryEP = `http://api.sportradar.com/tennis/trial/v3/en/seasons/${seasonId}/summaries.json?api_key=${parameterData.apiKey}&limit=125` // https://developer.sportradar.com/docs/read/tennis/Tennis_v3#season-summaries
 
@@ -326,6 +376,7 @@ else {
 		console.log('error writing season info: ' + e)
 	}
 
+	// wait one second, because a trial API key is rate limited to one operation per second
 	await sleep(1000)
 	
 	// fetch season summary data (the results)
@@ -339,6 +390,7 @@ else {
 		console.log('error fetching season summary A: ' + r2.statusText + '\n' + errorBody)
 	}
 	
+	// wait one second, because a trial API key is rate limited to one operation per second
 	await sleep(1000)
 
 	const r3 = await fetch(seasonSummaryEP + '&start=125')	// the second half of the results
@@ -371,12 +423,14 @@ if (!seasonInfoData.stages) {
 }
 
 const tournament = tournaments[parameterData.tournament]
+const competition = tournament.competitions[parameterData.event]
+const positions = competition.draw > 64 ? 128 : (competition.draw > 32 ? 64 : 32)
 
 // establish titles
 const title1 = tournament.title + ' ' + parameterData.year											// first line of title, eg "Australian Open 2021"
 const title2 = eventTitles[parameterData.event]														// second line of title, eg "Men’s Singles"
 
-// process the raw data into a format which is easy to work with
+// process the draw data
 let draw = []
 const drawRaw1 = seasonInfoData.stages.find(x => x.phase == mainDrawPhaseName)						// we're not interested in the qualifying stage, so just extract the main draw stage
 if (drawRaw1) {
@@ -393,6 +447,8 @@ if (drawRaw1) {
 		}
 	})
 }
+/*
+when we include this bit, need to account for tournament draw size, and moving sorting below this
 for (let i=0; i<128; i++) {
 	if (draw.length <= i || draw[i].position != i+1)
 		draw.push({
@@ -405,19 +461,25 @@ for (let i=0; i<128; i++) {
 			'wins': []
 		})
 }
+*/
+console.log('competitors in draw: ' + draw.length)
+
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == mainDrawPhaseName)	// we're not interested in the qualifying stage, so just extract results from the main draw stage
 draw.forEach(x => {																					// for each contestant
 	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
-	if (tournament.draw > 64 && tournament.draw < 128 && (x.position%8 == 0 || (x.position - 1)%8 == 0)) wins.unshift('BYE')	// add a bye 'win'
+	if ((competition.draw == 96 || competition.draw == 48) && (x.position%8 == 0 || (x.position - 1)%8 == 0))	// add two bye 'wins' per every 8 players
+		wins.unshift('BYE')		
+	if (competition.draw == 56 && (x.position%16 == 0 || (x.position - 1)%16 == 0))					// add two bye 'wins' per every 16 players
+		wins.unshift('BYE')								
 	for(let y=1; y<8; y++) {																		// for each result, up to a maximum of seven results
 		x['r'+y] = (wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 		x.wins.push(wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
 	}
 //	console.log('wins for ' + x.position + ' ' + x.name1 + ' ' + x.wins)
 })
-console.log('competitors in draw: ' + draw.length)
 
 // start building a string containing the SVG code we want to output
+const big = positions == 128
 let s = `<?xml version="1.0" encoding="utf-8"?>
 <svg viewBox="0 0 2970 2100" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
   <defs>
@@ -459,10 +521,10 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
         stroke-width: 1px;
       }
       .cp1 {
-        clip-path: polygon(0px 0px, 170px 0px, 170px 40px, 0px 40px);
+        clip-path: polygon(0px 0px, ${big ? "170px" : "230px"} 0px, ${big ? "170px" : "230px"} 40px, 0px 40px);
       }
       .cp2 {
-        clip-path: polygon(0px 0px, 430px 0px, 430px 40px, 0px 40px);
+        clip-path: polygon(0px 0px, ${big ? "430px" : "490px"} 0px, ${big ? "430px" : "490px"} 40px, 0px 40px);
       }
     </style>
     <clipPath id="clipSF1">
@@ -475,15 +537,16 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
       <rect x="1580" y="1024" width="180" height="40" />
     </clipPath>
   </defs>
-  <text class="p3" x="1470" y="110">${title1}</text>
-  <text class="p3" x="1470" y="150">${title2}</text>
-  <text class="p4" x="1470" y="1000">🏆</text>
-  <text class="p5" x="1470" y="2010">as at ${getAsAt()} UTC</text>
+  <text class="p3" x="${big ? "1470" : "2125"}" y="110">${title1}</text>
+  <text class="p3" x="${big ? "1470" : "2125"}" y="150">${title2}</text>
+  <text class="p4" x="${big ? "1470" : "2485"}" y="${big ? "1000" : "1068"}">🏆</text>
+`
+if (parameterData.showTimestamp) s += `  <text class="p5" x="${big ? "1470" : "2125"}" y="2010">as at ${getAsAt()}</text>
 `
 
 // add the SVG code for the main part of the draw sheet: the contestants names and results for the first five rounds
 let y = 100
-for (let z = 0; z < 128; z++) {
+for (let z = 0; z < positions; z++) {
 	const x = (z < 64 ? 80 : 2430)
 	const line = draw.find(d => z == d.position - 1)
 	if (line) {
@@ -497,28 +560,31 @@ for (let z = 0; z < 128; z++) {
 	if (z%8 == 0) s += renderResult(z,3,x,y)
 	if (z%16 == 0) s += renderResult(z,4,x,y)
 	if (z%32 == 0) s += renderResult(z,5,x,y)
+	if (z%64 == 0 && !big) s += renderResult(z,6,x,y)	// for tournaments with 128 positions, see special finals rendering below
 }
 
-// add the SVG code for the central part of the draw sheet: the semifinal and final results
-s += '  <line class="lt" x1="1370" y1="1027" x2="1370" y2="1073"/>\n'
-s += '  <line class="lt" x1="1570" y1="1027" x2="1570" y2="1073"/>\n'
-s += '  <line class="ln" x1="1180" y1="1050" x2="1360" y2="1050"/>\n'
-s += '  <line class="ln" x1="1370" y1="1050" x2="1570" y2="1050"/>\n'
-s += '  <line class="ln" x1="1580" y1="1050" x2="1760" y2="1050"/>\n'
-const rSF1 = getResult(draw.slice(0,64).find(d => d.wins[5]),6)
-const rSF2 = getResult(draw.slice(64,128).find(d => d.wins[5]),6)
-const rF = getResult(draw.find(d => d.wins[6]),7)
-if (rSF1) {
-	s += '  <text class="' + textClass(rSF1.c,6) + '" x="1270" y="1043" clip-path="url(#clipSF1)">' + rSF1.a + '</text>\n'
-	s += '  <text class="p5 cp3" x="1270" y="1073">' + rSF1.b + '</text>\n'
-}
-if (rF) {
-	s += '  <text class="' + textClass(rF.c,7) + '" x="1470" y="1043" clip-path="url(#clipF)">' + rF.a + '</text>\n'
-	s += '  <text class="p5 cp3" x="1470" y="1073">' + rF.b + '</text>\n'
-}
-if (rSF2) {
-	s += '  <text class="' + textClass(rSF2.c,6) + '" x="1670" y="1043" clip-path="url(#clipSF2)">' + rSF2.a + '</text>\n'
-	s += '  <text class="p5 cp3" x="1670" y="1073">' + rSF2.b + '</text>\n'
+if (big) {
+	// add the SVG code for the central part of the draw sheet: the semifinal and final results
+	s += '  <line class="lt" x1="1370" y1="1027" x2="1370" y2="1073"/>\n'
+	s += '  <line class="lt" x1="1570" y1="1027" x2="1570" y2="1073"/>\n'
+	s += '  <line class="ln" x1="1180" y1="1050" x2="1360" y2="1050"/>\n'
+	s += '  <line class="ln" x1="1370" y1="1050" x2="1570" y2="1050"/>\n'
+	s += '  <line class="ln" x1="1580" y1="1050" x2="1760" y2="1050"/>\n'
+	const rSF1 = getResult(draw.slice(0,64).find(d => d.wins[5]),6)
+	const rSF2 = getResult(draw.slice(64,128).find(d => d.wins[5]),6)
+	const rF = getResult(draw.find(d => d.wins[6]),7)
+	if (rSF1) {
+		s += '  <text class="' + textClass(rSF1.c,6) + '" x="1270" y="1043" clip-path="url(#clipSF1)">' + rSF1.a + '</text>\n'
+		s += '  <text class="p5 cp3" x="1270" y="1073">' + rSF1.b + '</text>\n'
+	}
+	if (rF) {
+		s += '  <text class="' + textClass(rF.c,7) + '" x="1470" y="1043" clip-path="url(#clipF)">' + rF.a + '</text>\n'
+		s += '  <text class="p5 cp3" x="1470" y="1073">' + rF.b + '</text>\n'
+	}
+	if (rSF2) {
+		s += '  <text class="' + textClass(rSF2.c,6) + '" x="1670" y="1043" clip-path="url(#clipSF2)">' + rSF2.a + '</text>\n'
+		s += '  <text class="p5 cp3" x="1670" y="1073">' + rSF2.b + '</text>\n'
+	}
 }
 
 // finish off the SVG code
