@@ -161,6 +161,10 @@ const tournaments = {
 				"ms" : "sr:season:79241",
 				"ws" : "sr:season:79267",
 			},
+			"2022": {
+				"ms" : "sr:season:84354",
+				"ws" : "sr:season:84352",
+			}
 		},
 	},
 	"wi": {
@@ -179,6 +183,60 @@ const tournaments = {
 			"2021": {
 				"ms" : "sr:season:76843",
 				"ws" : "sr:season:76845",
+			},
+		},
+	},	
+	"ca": {
+		"title": "Canadian Open",
+		"competitions": {
+			"ms" : {
+				id: "sr:competition:2995 / sr:competition:8285",
+				draw: 48,
+			},
+			"ws" : {
+				id: "sr:competition:2977 / sr:competition:8279", 
+				draw: 56,
+			},
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:74033",
+				"ws" : "sr:season:73511",
+			},
+			"2021": {
+				"ms" : "sr:season:80726",
+				"ws" : "sr:season:82872",
+			},
+			"2022": {
+				"ms" : "sr:season:91507",
+				"ws" : "sr:season:91523",
+			},
+		},
+	},
+	"ci": {
+		"title": "Cincinnati",
+		"competitions": {
+			"ms" : {
+				id: "sr:competition:2983",
+				draw: 56,
+			},
+			"ws" : {
+				id: "sr:competition:8363", 
+				draw: 56,
+			},
+		},
+		"seasons": {
+			"2020": {
+				"ms" : "sr:season:73855",
+				"ws" : "sr:season:73463",
+			},
+			"2021": {
+				"ms" : "sr:season:80730",
+				"ws" : "sr:season:82876",
+			},
+			"2022": {
+				"ms" : "sr:season:91511",
+				"ws" : "sr:season:91529",
 			},
 		},
 	},
@@ -227,7 +285,7 @@ const reconstructParameters = a => {
 // converts the qualificaton path from the API to what we want to display on the draw sheet
 const renderQP = c => {
 	if (!c.qualification_path) return ''
-	if (c.qualification_path == 'seeded') return c.seed.toString()
+	if (c.qualification_path == 'seeded') return c.seed ? c.seed.toString() : ''
 	if (c.qualification_path == 'wildcard') return 'W'
 	if (c.qualification_path == 'qualified') return 'Q'
 	if (c.qualification_path == 'luckyloser') return 'L'

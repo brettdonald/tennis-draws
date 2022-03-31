@@ -24,6 +24,8 @@ Valid values for `tournament_code`:
 * __ro__ — Rome
 * __rg__ — Roland-Garros
 * __wi__ — Wimbledon
+* __ca__ — Canadian Open
+* __ci__ — Cincinnati
 * __us__ — US Open
 
 Valid values for `event_code`:
