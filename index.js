@@ -579,7 +579,7 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
         stroke-width: 1px;
       }
       .cp1 {
-        clip-path: polygon(0px 0px, ${big ? "170px" : "230px"} 0px, ${big ? "170px" : "230px"} 40px, 0px 40px);
+        clip-path: polygon(0px 0px, ${big ? "170px" : "290px"} 0px, ${big ? "170px" : "290px"} 40px, 0px 40px);
       }
       .cp2 {
         clip-path: polygon(0px 0px, ${big ? "430px" : "490px"} 0px, ${big ? "430px" : "490px"} 40px, 0px 40px);
