@@ -13,7 +13,7 @@ Download the code and install the packages upon which it depends:
 
 Executing the code requires parameters as follows:
 
-    node index.js tournament_code year event_code api_key [show_timestamp]
+    node index.js tournament_code year event_code stage_code api_key [show_timestamp]
 
 Valid values for `tournament_code`:
 
@@ -22,7 +22,7 @@ Valid values for `tournament_code`:
 * __mi__ — Miami Open
 * __ma__ — Madrid
 * __ro__ — Rome
-* __rg__ — Roland-Garros
+* __rg__ — French Open
 * __wi__ — Wimbledon
 * __ca__ — Canadian Open
 * __ci__ — Cincinnati
@@ -32,6 +32,11 @@ Valid values for `event_code`:
 
 * __ms__ — Men’s Singles
 * __ws__ — Women’s Singles
+
+Valid values for `stage_code`:
+
+* __q__ — Qualifying
+* __m__ — Main Draw
 
 Valid values for `show_timestamp`:
 

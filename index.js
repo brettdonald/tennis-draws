@@ -7,7 +7,10 @@ const parametersFileName = dataDirectory + '/parameters.txt'
 const seasonInfoFileName = dataDirectory + '/season-info.txt'
 const seasonSummaryFileName = dataDirectory + '/season-summary.txt'
 const outputFileName = dataDirectory + '/draw.svg'
+
+const qualifyingPhaseName = 'qualification'
 const mainDrawPhaseName = 'stage_1_playoff'
+
 const offsets = {
 	"32":[],
 	"64":[{"l":{"l1":{"x1":500,"y1":-45,"x2":500,"y2":1},"l2":{"x1":500,"y1":-22,"x2":800,"y2":-22},"t1":{"x":510,"y":-29},"t2":{"x":510,"y":1}}},{"l":{"l1":{"x1":810,"y1":-45,"x2":810,"y2":60},"l2":{"x1":810,"y1":7,"x2":1110,"y2":7},"t1":{"x":820,"y":0},"t2":{"x":820,"y":30}}},{"l":{"l1":{"x1":1120,"y1":-25,"x2":1120,"y2":159},"l2":{"x1":1120,"y1":67,"x2":1420,"y2":67},"t1":{"x":1130,"y":60},"t2":{"x":1130,"y":90}}},{"l":{"l1":{"x1":1430,"y1":30,"x2":1430,"y2":341},"l2":{"x1":1430,"y1":185,"x2":1730,"y2":185},"t1":{"x":1440,"y":178},"t2":{"x":1440,"y":208}}},{"l":{"l1":{"x1":1740,"y1":150,"x2":1740,"y2":696},"l2":{"x1":1740,"y1":423,"x2":2040,"y2":423},"t1":{"x":1750,"y":416},"t2":{"x":1750,"y":446}}},{"l":{"l1":{"x1":2050,"y1":388,"x2":2050,"y2":1430},"l2":{"x1":2050,"y1":920,"x2":2350,"y2":920},"t1":{"x":2060,"y":913},"t2":{"x":2060,"y":943}}}],
@@ -141,7 +144,7 @@ const tournaments = {
 		},
 	},
 	"rg": {
-		"title": "Roland-Garros",
+		"title": "French Open",
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2579",
@@ -277,8 +280,9 @@ const reconstructParameters = a => {
 		"tournament": a[0],
 		"year": a[1],
 		"event": a[2],
-		"apiKey": a[3],
-		"showTimestamp": a.length>4 && (a[4]=='n') ? false : true,
+		"stage": a[3],
+		"apiKey": a[4],
+		"showTimestamp": a.length>4 && (a[5]=='n') ? false : true,
 	}
 }
 
@@ -373,13 +377,13 @@ let seasonSummaryDataB = null
 // create a data directory if it doesn't exist already
 if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
-// if we don't have a complete local data cache, check that we were supplied at least four parameters (argv.length == 6)
-if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName)) && process.argv.length < 6) {
-	console.log('usage: node index.js tournament_code year event_code api_key [show_timestamp]')
+// if we don't have a complete local data cache, check that we were supplied at least five parameters (argv.length == 7)
+if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName)) && process.argv.length < 7) {
+	console.log('usage: node index.js tournament_code year event_code stage_code api_key [show_timestamp]')
 	process.exit(1)
 }
 
-if (process.argv.length < 6) {
+if (process.argv.length < 7) {
 	// read the data from local cache
 	parameterData = JSON.parse(fs.readFileSync(parametersFileName))
 	parameterData.showTimestamp = false
@@ -483,14 +487,16 @@ if (!seasonInfoData.stages) {
 const tournament = tournaments[parameterData.tournament]
 const competition = tournament.competitions[parameterData.event]
 const positions = competition.draw > 64 ? 128 : (competition.draw > 32 ? 64 : 32)
+const qualifying = (parameterData.stage == "q")
+const requestedStage = qualifying ? qualifyingPhaseName : mainDrawPhaseName
 
 // establish titles
 const title1 = tournament.title + ' ' + parameterData.year											// first line of title, eg "Australian Open 2021"
-const title2 = eventTitles[parameterData.event]														// second line of title, eg "Men’s Singles"
+const title2 = eventTitles[parameterData.event] + (qualifying ? " Qualifying" : "")					// second line of title, eg "Men’s Singles"
 
 // process the draw data
 let draw = []
-const drawRaw1 = seasonInfoData.stages.find(x => x.phase == mainDrawPhaseName)						// we're not interested in the qualifying stage, so just extract the main draw stage
+const drawRaw1 = seasonInfoData.stages.find(x => x.phase == requestedStage)
 if (drawRaw1) {
 	const drawRaw2 = drawRaw1.groups[0].competitors.sort((a,b) => a.bracket_number - b.bracket_number)	// sort the competitors by their 'bracket number', or position on the draw sheet
 	draw = drawRaw2.map(x => {																		// extract and format just the data we want to display
@@ -522,7 +528,7 @@ for (let i=0; i<128; i++) {
 */
 console.log('competitors in draw: ' + draw.length)
 
-const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == mainDrawPhaseName)	// we're not interested in the qualifying stage, so just extract results from the main draw stage
+const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == requestedStage)
 draw.forEach(x => {																					// for each contestant
 	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
 	if ((competition.draw == 96 || competition.draw == 48) && (x.position%8 == 0 || (x.position - 1)%8 == 0))	// add two bye 'wins' per every 8 players
@@ -597,7 +603,8 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
   </defs>
   <text class="p3" x="${big ? "1470" : "2125"}" y="110">${title1}</text>
   <text class="p3" x="${big ? "1470" : "2125"}" y="150">${title2}</text>
-  <text class="p4" x="${big ? "1470" : "2485"}" y="${big ? "1000" : "1068"}">🏆</text>
+`
+if (!qualifying) s += `  <text class="p4" x="${big ? "1470" : "2485"}" y="${big ? "1000" : "1068"}">🏆</text>
 `
 if (parameterData.showTimestamp) s += `  <text class="p5" x="${big ? "1470" : "2125"}" y="2010">as at ${getAsAt()}</text>
 `
@@ -616,12 +623,12 @@ for (let z = 0; z < positions; z++) {
 	if (z%2 == 0) s += renderResult(z,1,x,y)
 	if (z%4 == 0) s += renderResult(z,2,x,y)
 	if (z%8 == 0) s += renderResult(z,3,x,y)
-	if (z%16 == 0) s += renderResult(z,4,x,y)
-	if (z%32 == 0) s += renderResult(z,5,x,y)
-	if (z%64 == 0 && !big) s += renderResult(z,6,x,y)	// for tournaments with 128 positions, see special finals rendering below
+	if (z%16 == 0 && !qualifying) s += renderResult(z,4,x,y)
+	if (z%32 == 0 && !qualifying) s += renderResult(z,5,x,y)
+	if (z%64 == 0 && !qualifying && !big) s += renderResult(z,6,x,y)	// for tournaments with 128 positions, see special finals rendering below
 }
 
-if (big) {
+if (big && !qualifying) {
 	// add the SVG code for the central part of the draw sheet: the semifinal and final results
 	s += '  <line class="lt" x1="1370" y1="1027" x2="1370" y2="1073"/>\n'
 	s += '  <line class="lt" x1="1570" y1="1027" x2="1570" y2="1073"/>\n'
