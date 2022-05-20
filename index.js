@@ -511,22 +511,27 @@ if (drawRaw1) {
 		}
 	})
 }
-/*
-when we include this bit, need to account for tournament draw size, and moving sorting below this
-for (let i=0; i<128; i++) {
-	if (draw.length <= i || draw[i].position != i+1)
-		draw.push({
-			'id': null,
-			'position': i + 1,
-			'name1': 'Qualifier',
-			'name2': '',
-			'qualification': '',
-			'flag': '',
-			'wins': []
-		})
-}
-*/
 console.log('competitors in draw: ' + draw.length)
+
+// if the draw is not full, place qualifiers into any empty brackets
+if (draw.length < positions) {
+	let z = 0;
+	for (let i=0; i<positions; i++) {
+		if (draw[i].position != i+1) {
+			draw.splice(i,0,{
+				'id': null,
+				'position': i + 1,
+				'name1': 'Qualifier',
+				'name2': '',
+				'qualification': '',
+				'flag': '',
+				'wins': []
+			})
+			z++
+		}
+	}
+	console.log('qualifiers added: ' + z)
+}
 
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == requestedStage)
 draw.forEach(x => {																					// for each contestant
