@@ -513,12 +513,24 @@ if (drawRaw1) {
 }
 console.log('competitors in draw: ' + draw.length)
 
-// if the draw is not full, place qualifiers into any empty brackets
+// if the draw is not full ...
+const emptyDraw = draw.length == 0
 if (draw.length < positions) {
-	let z = 0;
+	let z = 0
 	for (let i=0; i<positions; i++) {
-		if (draw[i].position != i+1) {
-			draw.splice(i,0,{
+		if (emptyDraw) {						// if the draw has not yet happened
+			draw.push({							// add a row containing just the position
+				'id': null,
+				'position': i + 1,
+				'name1': '',
+				'name2': '',
+				'qualification': '',
+				'flag': '',
+				'wins': []
+			})
+		}
+		else if (draw[i].position != i+1) {		// if the draw has happened but qualifying is still under way 
+			draw.splice(i,0,{					// add a row containing the position and the word 'Qualifier'
 				'id': null,
 				'position': i + 1,
 				'name1': 'Qualifier',
