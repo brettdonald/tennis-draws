@@ -167,7 +167,7 @@ const tournaments = {
 			"2022": {
 				"ms" : "sr:season:84354",
 				"ws" : "sr:season:84352",
-			}
+			},
 		},
 	},
 	"wi": {
@@ -186,6 +186,10 @@ const tournaments = {
 			"2021": {
 				"ms" : "sr:season:76843",
 				"ws" : "sr:season:76845",
+			},
+			"2022": {
+				"ms" : "sr:season:77033",
+				"ws" : "sr:season:85154",
 			},
 		},
 	},	
