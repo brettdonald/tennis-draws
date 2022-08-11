@@ -433,6 +433,7 @@ else {
 	// fetch season info data (the draw)
 	const r1 = await fetch(seasonInfoEP)
 	console.log(r1.ok ? 'season info fetched' : 'error fetching season info: ' + r1.statusText)
+	if (!r1.ok) process.exit(1)
 	seasonInfoData = await r1.json()
 	try {
 		fs.writeFileSync(seasonInfoFileName, JSON.stringify(seasonInfoData))	// cache the season info data in a local file
