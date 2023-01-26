@@ -41,6 +41,10 @@ const tournaments = {
 				"ms" : "sr:season:81706",
 				"ws" : "sr:season:81708",
 			},
+			"2023": {
+				"ms" : "sr:season:90773",
+				"ws" : "sr:season:90775",
+			},
 		},
 	},
 	"iw": {
@@ -64,6 +68,10 @@ const tournaments = {
 				"ms" : "sr:season:89081",
 				"ws" : "sr:season:89389",
 			},
+			"2023": {
+				"ms" : "sr:season:99149",
+				"ws" : "sr:season:99225",
+			},
 		},
 	},
 	"mi": {
@@ -86,6 +94,10 @@ const tournaments = {
 			"2022": {
 				"ms" : "sr:season:89085",
 				"ws" : "sr:season:89393",
+			},
+			"2023": {
+				"ms" : "sr:season:99153",
+				"ws" : "sr:season:99231",
 			},
 		},
 	},
@@ -114,6 +126,10 @@ const tournaments = {
 				"ms" : "sr:season:89003",
 				"ws" : "sr:season:89415",
 			},
+			"2023": {
+				"ms" : "sr:season:99275",
+				"ws" : "sr:season:99305",
+			},
 		},
 	},
 	"ro": {
@@ -140,6 +156,10 @@ const tournaments = {
 			"2022": {
 				"ms" : "sr:season:89007",
 				"ws" : "sr:season:89419",
+			},
+			"2023": {
+				"ms" : "sr:season:99279",
+				"ws" : "sr:season:99301",
 			},
 		},
 	},
@@ -168,6 +188,10 @@ const tournaments = {
 				"ms" : "sr:season:84354",
 				"ws" : "sr:season:84352",
 			},
+			"2023": {
+				"ms" : "sr:season:94019",
+				"ws" : "sr:season:94021",
+			},
 		},
 	},
 	"wi": {
@@ -191,6 +215,10 @@ const tournaments = {
 				"ms" : "sr:season:77033",
 				"ws" : "sr:season:85154",
 			},
+			"2023": {
+				"ms" : "sr:season:95307",
+				"ws" : "sr:season:95309",
+			},
 		},
 	},	
 	"ca": {
@@ -198,7 +226,7 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2995 / sr:competition:8285",
-				draw: 48,
+				draw: 56,
 			},
 			"ws" : {
 				id: "sr:competition:2977 / sr:competition:8279", 
@@ -217,6 +245,10 @@ const tournaments = {
 			"2022": {
 				"ms" : "sr:season:91507",
 				"ws" : "sr:season:91523",
+			},
+			"2023": {
+				"ms" : "sr:season:99429",
+				"ws" : "sr:season:99859",
 			},
 		},
 	},
@@ -245,6 +277,10 @@ const tournaments = {
 				"ms" : "sr:season:91511",
 				"ws" : "sr:season:91529",
 			},
+			"2023": {
+				"ms" : "sr:season:99649",
+				"ws" : "sr:season:99867",
+			},
 		},
 	},
 	"us": {
@@ -267,6 +303,14 @@ const tournaments = {
 			"2021": {
 				"ms" : "sr:season:78537",
 				"ws" : "sr:season:78539",
+			},
+			"2022": {
+				"ms" : "sr:season:87150",
+				"ws" : "sr:season:87152",
+			},
+			"2023": {
+				"ms" : "sr:season:97749",
+				"ws" : "sr:season:97747",
 			},
 		},
 	},
