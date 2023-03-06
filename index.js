@@ -21,11 +21,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2567",	// competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 			"ws" : {
 				id: "sr:competition:2571",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 		},
 		"seasons": {
@@ -52,11 +54,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2739",
-				draw: 96,
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4589",
-				draw: 96,
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -79,11 +83,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2745",
-				draw: 96,
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4691",
-				draw: 96,
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -106,11 +112,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2787",
-				draw: 56,
+				draw: {m: 56, q: 28},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4925",
-				draw: 64,
+				draw: {m: 64, q: 32},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -137,11 +145,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2781",
-				draw: 56,
+				draw: {m: 56, q: 28},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4775",
-				draw: 56,
+				draw: {m: 56, q: 32},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -168,11 +178,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2579",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 			"ws" : {
 				id: "sr:competition:2583",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 		},
 		"seasons": {
@@ -199,11 +211,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2555",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 			"ws" : {
 				id: "sr:competition:2559",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 		},
 		"seasons": {
@@ -226,11 +240,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2995 / sr:competition:8285",
-				draw: 56,
+				draw: {m: 56, q: 28},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:2977 / sr:competition:8279", 
-				draw: 56,
+				draw: {m: 56, q: 32},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -257,11 +273,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2983",
-				draw: 56,
+				draw: {m: 56, q: 24},
+				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:8363", 
-				draw: 56,
+				draw: {m: 56, q: 32},
+				qualifyingRounds: 2,
 			},
 		},
 		"seasons": {
@@ -288,11 +306,13 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2591",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 			"ws" : {
 				id: "sr:competition:2595",
-				draw: 128,
+				draw: {m: 128, q: 128},
+				qualifyingRounds: 3,
 			},
 		},
 		"seasons": {
@@ -535,7 +555,8 @@ if (!seasonInfoData.stages) {
 
 const tournament = tournaments[parameterData.tournament]
 const competition = tournament.competitions[parameterData.event]
-const positions = competition.draw > 64 ? 128 : (competition.draw > 32 ? 64 : 32)
+const drawSize = competition.draw[parameterData.stage]
+const positions = drawSize > 64 ? 128 : (drawSize > 32 ? 64 : 32)
 const qualifying = (parameterData.stage == "q")
 const requestedStage = qualifying ? qualifyingPhaseName : mainDrawPhaseName
 
@@ -560,17 +581,28 @@ if (drawRaw1) {
 		}
 	})
 }
+console.log('positions on draw sheet: ' + positions)
 console.log('competitors in draw: ' + draw.length)
 
 // if the draw is not full ...
-const emptyDraw = draw.length == 0
 if (draw.length < positions) {
 	let z = 0
 	for (let i=0; i<positions; i++) {
-		if (emptyDraw) {						// if the draw has not yet happened
+		if (draw.length == 0) {					// if the draw has not yet happened
 			draw.push({							// add a row containing just the position
 				'id': null,
 				'position': i + 1,
+				'name1': '',
+				'name2': '',
+				'qualification': '',
+				'flag': '',
+				'wins': []
+			})
+		}
+		else if (i < draw.length) {				// if the draw sheet has more rows than the actual draw 
+			draw.push({							// add a blank row
+				'id': null,
+				'position': '',
 				'name1': '',
 				'name2': '',
 				'qualification': '',
@@ -686,11 +718,11 @@ for (let z = 0; z < positions; z++) {
 	}
 	if (z == 63) y = 100
 	else y = Math.round((y + 30.4)*10)/10
-	if (z%2 == 0) s += renderResult(z,1,x,y)
-	if (z%4 == 0) s += renderResult(z,2,x,y)
-	if (z%8 == 0) s += renderResult(z,3,x,y)
-	if (z%16 == 0 && !qualifying) s += renderResult(z,4,x,y)
-	if (z%32 == 0 && !qualifying) s += renderResult(z,5,x,y)
+	if (z%2 == 0 && (!qualifying || competition.qualifyingRounds >= 1)) s += renderResult(z,1,x,y)
+	if (z%4 == 0 && (!qualifying || competition.qualifyingRounds >= 2)) s += renderResult(z,2,x,y)
+	if (z%8 == 0 && (!qualifying || competition.qualifyingRounds >= 3)) s += renderResult(z,3,x,y)
+	if (z%16 == 0 && (!qualifying || competition.qualifyingRounds >= 4)) s += renderResult(z,4,x,y)
+	if (z%32 == 0 && (!qualifying || competition.qualifyingRounds >= 5)) s += renderResult(z,5,x,y)
 	if (z%64 == 0 && !qualifying && !big) s += renderResult(z,6,x,y)	// for tournaments with 128 positions, see special finals rendering below
 }
 
