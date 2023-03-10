@@ -586,9 +586,10 @@ console.log('competitors in draw: ' + draw.length)
 
 // if the draw is not full ...
 if (draw.length < positions) {
+	const dl = draw.length
 	let z = 0
 	for (let i=0; i<positions; i++) {
-		if (draw.length == 0) {					// if the draw has not yet happened
+		if (dl == 0) {							// if the draw has not yet happened
 			draw.push({							// add a row containing just the position
 				'id': null,
 				'position': i + 1,
@@ -599,8 +600,8 @@ if (draw.length < positions) {
 				'wins': []
 			})
 		}
-		else if (i < draw.length) {				// if the draw sheet has more rows than the actual draw 
-			draw.push({							// add a blank row
+		else if (i >= draw.length) {			// if the draw sheet has more rows than the actual draw 
+			draw.push({							// add a totally blank row
 				'id': null,
 				'position': '',
 				'name1': '',
@@ -610,7 +611,7 @@ if (draw.length < positions) {
 				'wins': []
 			})
 		}
-		else if (draw[i].position != i+1) {		// if the draw has happened but qualifying is still under way 
+		else if (draw[i].position != i+1) {		// if the draw doesn't have a player in this position (the draw has happened but qualifying is still under way)
 			draw.splice(i,0,{					// add a row containing the position and the word 'Qualifier'
 				'id': null,
 				'position': i + 1,
@@ -622,6 +623,7 @@ if (draw.length < positions) {
 			})
 			z++
 		}
+		// else the draw already has a player in this position, so no need to adjust anything
 	}
 	console.log('qualifiers added: ' + z)
 }
