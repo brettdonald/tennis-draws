@@ -631,9 +631,9 @@ if (draw.length < positions) {
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == requestedStage)
 draw.forEach(x => {																					// for each contestant
 	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
-	if ((competition.draw == 96 || competition.draw == 48) && (x.position%8 == 0 || (x.position - 1)%8 == 0))	// add two bye 'wins' per every 8 players
+	if ((drawSize == 96 || drawSize == 48) && (x.position%8 == 0 || (x.position - 1)%8 == 0))		// add two bye 'wins' per every 8 players
 		wins.unshift('BYE')		
-	if (competition.draw == 56 && (x.position%16 == 0 || (x.position - 1)%16 == 0))					// add two bye 'wins' per every 16 players
+	if (drawSize == 56 && (x.position%16 == 0 || (x.position - 1)%16 == 0))							// add two bye 'wins' per every 16 players
 		wins.unshift('BYE')								
 	for(let y=1; y<8; y++) {																		// for each result, up to a maximum of seven results
 		x['r'+y] = (wins.length >= y ? formatScores(wins[y-1]) : '')								// format the result as we want to display it and attach it to the contentant's row of the draw sheet
