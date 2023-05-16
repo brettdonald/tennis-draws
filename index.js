@@ -112,12 +112,12 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2787",
-				draw: {m: 56, q: 28},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4925",
-				draw: {m: 64, q: 32},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 		},
@@ -145,12 +145,12 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2781",
-				draw: {m: 56, q: 28},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:4775",
-				draw: {m: 56, q: 32},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 		},
