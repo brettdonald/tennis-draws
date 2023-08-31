@@ -656,6 +656,7 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
       }
       tspan {
         font-size: 35px;
+        font-weight: normal;
       }
       .r {
         fill: pink;
