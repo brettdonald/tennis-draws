@@ -47,6 +47,10 @@ const tournaments = {
 				"ms" : "sr:season:90773",
 				"ws" : "sr:season:90775",
 			},
+			"2024": {
+				"ms" : "sr:season:102231",
+				"ws" : "sr:season:102229",
+			},
 		},
 	},
 	"iw": {
@@ -76,6 +80,10 @@ const tournaments = {
 				"ms" : "sr:season:99149",
 				"ws" : "sr:season:99225",
 			},
+			"2024": {
+				"ms" : "sr:season:111330",
+				"ws" : "sr:season:112876",
+			},
 		},
 	},
 	"mi": {
@@ -104,6 +112,10 @@ const tournaments = {
 			"2023": {
 				"ms" : "sr:season:99153",
 				"ws" : "sr:season:99231",
+			},
+			"2024": {
+				"ms" : "sr:season:111332",
+				"ws" : "sr:season:112880",
 			},
 		},
 	},
@@ -138,6 +150,10 @@ const tournaments = {
 				"ms" : "sr:season:99275",
 				"ws" : "sr:season:99305",
 			},
+			"2024": {
+				"ms" : "sr:season:111368",
+				"ws" : "sr:season:112898",
+			},
 		},
 	},
 	"ro": {
@@ -170,6 +186,10 @@ const tournaments = {
 			"2023": {
 				"ms" : "sr:season:99279",
 				"ws" : "sr:season:99301",
+			},
+			"2024": {
+				"ms" : "sr:season:111378",
+				"ws" : "sr:season:112902",
 			},
 		},
 	},
@@ -204,6 +224,10 @@ const tournaments = {
 				"ms" : "sr:season:94019",
 				"ws" : "sr:season:94021",
 			},
+			"2024": {
+				"ms" : "sr:season:106267",
+				"ws" : "sr:season:106269",
+			},
 		},
 	},
 	"wi": {
@@ -232,6 +256,10 @@ const tournaments = {
 			"2023": {
 				"ms" : "sr:season:95307",
 				"ws" : "sr:season:95309",
+			},
+			"2024": {
+				"ms" : "sr:season:107797",
+				"ws" : "sr:season:107799",
 			},
 		},
 	},	
@@ -266,6 +294,10 @@ const tournaments = {
 				"ms" : "sr:season:99429",
 				"ws" : "sr:season:99859",
 			},
+			"2024": {
+				"ms" : "sr:season:111494",
+				"ws" : "sr:season:113200",
+			},
 		},
 	},
 	"ci": {
@@ -298,6 +330,10 @@ const tournaments = {
 			"2023": {
 				"ms" : "sr:season:99649",
 				"ws" : "sr:season:99867",
+			},
+			"2024": {
+				"ms" : "sr:season:111498",
+				"ws" : "sr:season:113204",
 			},
 		},
 	},
@@ -332,6 +368,10 @@ const tournaments = {
 				"ms" : "sr:season:97749",
 				"ws" : "sr:season:97747",
 			},
+			"2024": {
+				"ms" : "sr:season:110285",
+				"ws" : "sr:season:110287",
+			},
 		},
 	},
 }
@@ -361,6 +401,7 @@ const renderQP = c => {
 	if (c.qualification_path == 'wildcard') return 'W'
 	if (c.qualification_path == 'qualified') return 'Q'
 	if (c.qualification_path == 'luckyloser') return 'L'
+	if (c.qualification_path == 'alternative') return 'A'
 	return '?'
 }
 
@@ -446,7 +487,7 @@ let seasonSummaryDataB = null
 if (!fs.existsSync(dataDirectory)) fs.mkdirSync(dataDirectory)
 
 // if we don't have a complete local data cache, check that we were supplied at least five parameters (argv.length == 7)
-if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonInfoFileName)) && process.argv.length < 7) {
+if (!(fs.existsSync(parametersFileName) && fs.existsSync(seasonInfoFileName) && fs.existsSync(seasonSummaryFileName)) && process.argv.length < 7) {
 	console.log('usage: node index.js tournament_code year event_code stage_code api_key [show_timestamp]')
 	process.exit(1)
 }
