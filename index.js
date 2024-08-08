@@ -374,6 +374,35 @@ const tournaments = {
 			},
 		},
 	},
+	"ol": {
+		"title": "Olympics",
+		"competitions": {
+			"ms" : {
+				id: "sr:competition:8183",
+				draw: {m: 64, q: 32},
+				qualifyingRounds: 2,
+			},
+			"ws" : {
+				id: "sr:competition:8187",
+				draw: {m: 64, q: 32},
+				qualifyingRounds: 2,
+			},
+		},
+		"seasons": {
+			"2016": {
+				"ms" : "sr:season:38236",
+				"ws" : "sr:season:38240",
+			},
+			"2021": {
+				"ms" : "sr:season:80702",
+				"ws" : "sr:season:73565",
+			},
+			"2024": {
+				"ms" : "sr:season:111452",
+				"ws" : "sr:season:117079",
+			},
+		},
+	},
 }
 const eventTitles = {"ms":"Men’s Singles","ws":"Women’s Singles"}
 
@@ -430,6 +459,7 @@ const formatScores = (a) => {
 				s += b.away_score.toString() + b.home_score.toString() + ' '
 		})
 	}
+	else s += 'not available'
 	s += (a.sport_event_status.match_status != "ended" ? a.sport_event_status.match_status : '')
 	return s.trim()
 }
@@ -671,7 +701,7 @@ if (draw.length < positions) {
 
 const matchResults = seasonSummaryData.summaries.filter(x => x.sport_event.sport_event_context.stage.phase == requestedStage)
 draw.forEach(x => {																					// for each contestant
-	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id) : []		// find any results where they were the winner
+	const wins = x.id ? matchResults.filter(e => e.sport_event_status.winner_id == x.id && !e.sport_event.sport_event_context.round.name.includes('3rd_place')) : []		// find any results where they were the winner (except if it was a 3rd place playoff at the olympics)
 	if ((drawSize == 96 || drawSize == 48) && (x.position%8 == 0 || (x.position - 1)%8 == 0) && !qualifying)	// add two bye 'wins' per every 8 players
 		wins.unshift('BYE')		
 	if (drawSize == 56 && (x.position%16 == 0 || (x.position - 1)%16 == 0) && !qualifying)			// add two bye 'wins' per every 16 players
