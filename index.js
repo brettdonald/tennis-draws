@@ -11,10 +11,7 @@ const outputFileName = dataDirectory + '/draw.svg'
 const qualifyingPhaseName = 'qualification'
 const mainDrawPhaseName = 'stage_1_playoff'
 
-const offsets = {
-	"32":[],
-	"64":[{"l":{"l1":{"x1":500,"y1":-45,"x2":500,"y2":1},"l2":{"x1":500,"y1":-22,"x2":800,"y2":-22},"t1":{"x":510,"y":-29},"t2":{"x":510,"y":1}}},{"l":{"l1":{"x1":810,"y1":-45,"x2":810,"y2":60},"l2":{"x1":810,"y1":7,"x2":1110,"y2":7},"t1":{"x":820,"y":0},"t2":{"x":820,"y":30}}},{"l":{"l1":{"x1":1120,"y1":-25,"x2":1120,"y2":159},"l2":{"x1":1120,"y1":67,"x2":1420,"y2":67},"t1":{"x":1130,"y":60},"t2":{"x":1130,"y":90}}},{"l":{"l1":{"x1":1430,"y1":30,"x2":1430,"y2":341},"l2":{"x1":1430,"y1":185,"x2":1730,"y2":185},"t1":{"x":1440,"y":178},"t2":{"x":1440,"y":208}}},{"l":{"l1":{"x1":1740,"y1":150,"x2":1740,"y2":696},"l2":{"x1":1740,"y1":423,"x2":2040,"y2":423},"t1":{"x":1750,"y":416},"t2":{"x":1750,"y":446}}},{"l":{"l1":{"x1":2050,"y1":388,"x2":2050,"y2":1430},"l2":{"x1":2050,"y1":920,"x2":2350,"y2":920},"t1":{"x":2060,"y":913},"t2":{"x":2060,"y":943}}}],
-	"128":[{"l":{"l1":{"x1":440,"y1":-45,"x2":440,"y2":1},"l2":{"x1":440,"y1":-22,"x2":620,"y2":-22},"t1":{"x":450,"y":-29},"t2":{"x":450,"y":1}},"r":{"l1":{"x1":-10,"y1":-45,"x2":-10,"y2":1},"l2":{"x1":-10,"y1":-22,"x2":-190,"y2":-22},"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":1}}},{"l":{"l1":{"x1":630,"y1":-45,"x2":630,"y2":60},"l2":{"x1":630,"y1":7,"x2":810,"y2":7},"t1":{"x":640,"y":0},"t2":{"x":640,"y":30}},"r":{"l1":{"x1":-200,"y1":-45,"x2":-200,"y2":60},"l2":{"x1":-200,"y1":7,"x2":-380,"y2":7},"t1":{"x":-380,"y":0},"t2":{"x":-380,"y":30}}},{"l":{"l1":{"x1":820,"y1":-25,"x2":820,"y2":159},"l2":{"x1":820,"y1":67,"x2":1000,"y2":67},"t1":{"x":830,"y":60},"t2":{"x":830,"y":90}},"r":{"l1":{"x1":-390,"y1":-25,"x2":-390,"y2":159},"l2":{"x1":-390,"y1":67,"x2":-570,"y2":67},"t1":{"x":-570,"y":60},"t2":{"x":-570,"y":90}}},{"l":{"l1":{"x1":1010,"y1":30,"x2":1010,"y2":341},"l2":{"x1":1010,"y1":185,"x2":1190,"y2":185},"t1":{"x":1020,"y":178},"t2":{"x":1020,"y":208}},"r":{"l1":{"x1":-580,"y1":30,"x2":-580,"y2":341},"l2":{"x1":-580,"y1":185,"x2":-760,"y2":185},"t1":{"x":-760,"y":178},"t2":{"x":-760,"y":208}}},{"l":{"l1":{"x1":1200,"y1":150,"x2":1200,"y2":696},"l2":{"x1":1200,"y1":423,"x2":1380,"y2":423},"t1":{"x":1210,"y":416},"t2":{"x":1210,"y":446}},"r":{"l1":{"x1":-770,"y1":150,"x2":-770,"y2":696},"l2":{"x1":-770,"y1":423,"x2":-950,"y2":423},"t1":{"x":-950,"y":416},"t2":{"x":-950,"y":446}}}]}
+const offsets = {"32":[],"64":[{"l":{"l1":{"x1":500,"y1":-45,"x2":500,"y2":1},"l2":{"x1":500,"y1":-22,"x2":800,"y2":-22},"t1":{"x":510,"y":-29},"t2":{"x":510,"y":1}}},{"l":{"l1":{"x1":810,"y1":-45,"x2":810,"y2":60},"l2":{"x1":810,"y1":7,"x2":1110,"y2":7},"t1":{"x":820,"y":0},"t2":{"x":820,"y":30}}},{"l":{"l1":{"x1":1120,"y1":-25,"x2":1120,"y2":159},"l2":{"x1":1120,"y1":67,"x2":1420,"y2":67},"t1":{"x":1130,"y":60},"t2":{"x":1130,"y":90}}},{"l":{"l1":{"x1":1430,"y1":30,"x2":1430,"y2":341},"l2":{"x1":1430,"y1":185,"x2":1730,"y2":185},"t1":{"x":1440,"y":178},"t2":{"x":1440,"y":208}}},{"l":{"l1":{"x1":1740,"y1":150,"x2":1740,"y2":696},"l2":{"x1":1740,"y1":423,"x2":2040,"y2":423},"t1":{"x":1750,"y":416},"t2":{"x":1750,"y":446}}},{"l":{"l1":{"x1":2050,"y1":388,"x2":2050,"y2":1430},"l2":{"x1":2050,"y1":920,"x2":2350,"y2":920},"t1":{"x":2060,"y":913},"t2":{"x":2060,"y":943}}}],"128":[{"l":{"t1":{"x":450,"y":-29},"t2":{"x":450,"y":-1}},"r":{"t1":{"x":-190,"y":-29},"t2":{"x":-190,"y":-1}}},{"l":{"t1":{"x":640,"y":1},"t2":{"x":640,"y":29}},"r":{"t1":{"x":-380,"y":1},"t2":{"x":-380,"y":29}}},{"l":{"t1":{"x":830,"y":61},"t2":{"x":830,"y":89}},"r":{"t1":{"x":-570,"y":61},"t2":{"x":-570,"y":89}}},{"l":{"t1":{"x":970,"y":181},"t2":{"x":970,"y":209}},"r":{"t1":{"x":-700,"y":181},"t2":{"x":-700,"y":209}}},{"l":{"t1":{"x":1110,"y":421},"t2":{"x":1110,"y":449}},"r":{"t1":{"x":-850,"y":421},"t2":{"x":-850,"y":449}}}]}
 const tournaments = {
 	"ao": {
 		"title": "Australian Open",
@@ -486,18 +483,21 @@ const renderResult = (z,round,x,y) => {
 	const sectionWinner = a.find(aa => aa.wins[round - 1])
 	const r = getResult(sectionWinner,round)
 	const o = z < 64 ? offsets[positions][round-1].l : offsets[positions][round-1].r
-	let s = '  <line class="lt" x1="' + (x + o.l1.x1) + '" y1="' + Math.round((y + o.l1.y1)*10)/10 + '" x2="' + (x + o.l1.x2) + '" y2="' + Math.round((y + o.l1.y2)*10)/10 + '"/>\n'
-	s += '  <line class="ln" x1="' + (x + o.l2.x1) + '" y1="' + Math.round((y + o.l2.y1)*10)/10 + '" x2="' + (x + o.l2.x2) + '" y2="' + Math.round((y + o.l2.y2)*10)/10 + '"/>\n'
+	let s = ''
+//	let s = '  <line class="lt" x1="' + (x + o.l1.x1) + '" y1="' + Math.round((y + o.l1.y1)*10)/10 + '" x2="' + (x + o.l1.x2) + '" y2="' + Math.round((y + o.l1.y2)*10)/10 + '"/>\n'
+//	s += '  <line class="ln" x1="' + (x + o.l2.x1) + '" y1="' + Math.round((y + o.l2.y1)*10)/10 + '" x2="' + (x + o.l2.x2) + '" y2="' + Math.round((y + o.l2.y2)*10)/10 + '"/>\n'
 	if (r) {
-		s += '  <text class="' + textClass(r.c,1) + ' cp1" x="' + (x + o.t1.x) + '" y="' + Math.round((y + o.t1.y)*10)/10 + '">' + r.a + '</text>\n'
-		s += '  <text class="p2 cp1" x="' + (x + o.t2.x) + '" y="' + Math.round((y + o.t2.y)*10)/10 + '">' + r.b + '</text>\n'
+//		s += '  <text class="' + textClass(r.c,1) + ' cp1" x="' + (x + o.t1.x) + '" y="' + Math.round((y + o.t1.y)*10)/10 + '">' + r.a + '</text>\n'
+//		s += '  <text class="p2 cp1" x="' + (x + o.t2.x) + '" y="' + Math.round((y + o.t2.y)*10)/10 + '">' + r.b + '</text>\n'
+		s += '  <text class="' + textClass(r.c,1) + ' cp1" x="' + (x + o.t1.x) + '" y="' + (y + o.t1.y) + '">' + r.a + '</text>\n'
+		s += '  <text class="p2 cp1" x="' + (x + o.t2.x) + '" y="' + (y + o.t2.y) + '">' + r.b + '</text>\n'
 	}
 	return s
 }
 
 // determine how a player name should be formatted based on qualification and round
 const textClass = (qualification,round = 1) => {
-	if (round > 5) return (!qualification || isNaN(qualification) ? "p5" : "p6")
+	if (round > 6) return (!qualification || isNaN(qualification) ? "p5" : "p6")
 	return (!qualification || isNaN(qualification) ? "p2" : "p1")
 }
 
@@ -762,27 +762,54 @@ let s = `<?xml version="1.0" encoding="utf-8"?>
       .cp2 {
         clip-path: polygon(0px 0px, ${big ? "430px" : "490px"} 0px, ${big ? "430px" : "490px"} 40px, 0px 40px);
       }
+      .hline {
+        stroke-width: 1px; stroke: black; fill: none;
+      }
+      .vline {
+        stroke-width: 3px; stroke: black; fill: none;
+      }
     </style>
     <clipPath id="clipSF1">
-      <rect x="1180" y="1024" width="180" height="40" />
-    </clipPath>
-    <clipPath id="clipF">
-      <rect x="1380" y="1024" width="180" height="40" />
+      <rect x="1330" y="875" width="170" height="40" />
     </clipPath>
     <clipPath id="clipSF2">
-      <rect x="1580" y="1024" width="180" height="40" />
+      <rect x="1440" y="1175" width="170" height="40" />
     </clipPath>
   </defs>
   <text class="p3" x="${big ? "1470" : "2125"}" y="110">${title1}</text>
   <text class="p3" x="${big ? "1470" : "2125"}" y="150">${title2}</text>
 `
-if (!qualifying) s += `  <text class="p4" x="${big ? "1470" : "2485"}" y="${big ? "1000" : "1068"}">🏆</text>
+if (!qualifying) s += `  <text class="p4" x="${big ? "1470" : "2485"}" y="${big ? "1030" : "1068"}">🏆</text>
 `
 if (parameterData.showTimestamp) s += `  <text class="p5" x="${big ? "1470" : "2125"}" y="2010">as at ${getAsAt()}</text>
 `
 
+// add the lines
+s += `<path class="hline" d="M 520 1980 L 700 1980 M 520 1920 L 700 1920 M 520 1860 L 700 1860 M 520 1800 L 700 1800 M 520 1740 L 700 1740 M 520 1680 L 700 1680 M 520 1620 L 700 1620 M 520 1560 L 700 1560 M 520 1500 L 700 1500 M 520 1440 L 700 1440 M 520 1380 L 700 1380 M 520 1320 L 700 1320 M 520 1260 L 700 1260 M 520 1200 L 700 1200 M 520 1140 L 700 1140 M 520 1080 L 700 1080 M 520 1020 L 700 1020 M 520 960 L 700 960 M 520 900 L 700 900 M 520 840 L 700 840 M 520 780 L 700 780 M 520 720 L 700 720 M 520 660 L 700 660 M 520 600 L 700 600 M 520 540 L 700 540 M 520 480 L 700 480 M 520 420 L 700 420 M 520 360 L 700 360 M 520 300 L 700 300 M 520 240 L 700 240 M 520 180 L 700 180 M 520 120 L 700 120"><title>lines r1 1</title></path>
+<path class="hline" d="M 2240 1980 L 2420 1980 M 2240 1920 L 2420 1920 M 2240 1860 L 2420 1860 M 2240 1800 L 2420 1800 M 2240 1740 L 2420 1740 M 2240 1680 L 2420 1680 M 2240 1620 L 2420 1620 M 2240 1560 L 2420 1560 M 2240 1500 L 2420 1500 M 2240 1440 L 2420 1440 M 2240 1380 L 2420 1380 M 2240 1320 L 2420 1320 M 2240 1260 L 2420 1260 M 2240 1200 L 2420 1200 M 2240 1140 L 2420 1140 M 2240 1080 L 2420 1080 M 2240 1020 L 2420 1020 M 2240 960 L 2420 960 M 2240 900 L 2420 900 M 2240 840 L 2420 840 M 2240 780 L 2420 780 M 2240 720 L 2420 720 M 2240 660 L 2420 660 M 2240 600 L 2420 600 M 2240 540 L 2420 540 M 2240 480 L 2420 480 M 2240 420 L 2420 420 M 2240 360 L 2420 360 M 2240 300 L 2420 300 M 2240 240 L 2420 240 M 2240 180 L 2420 180 M 2240 120 L 2420 120"><title>lines r1 2</title></path>
+<path class="hline" d="M 710 150 L 890 150 M 710 270 L 890 270 M 710 390 L 890 390 M 710 510 L 890 510 M 710 630 L 890 630 M 710 750 L 890 750 M 710 870 L 890 870 M 710 990 L 890 990 M 710 1110 L 890 1110 M 710 1230 L 890 1230 M 710 1350 L 890 1350 M 710 1470 L 890 1470 M 710 1590 L 890 1590 M 710 1710 L 890 1710 M 710 1830 L 890 1830 M 710 1950 L 890 1950"><title>lines r2 1</title></path>
+<path class="hline" d="M 2050 150 L 2230 150 M 2050 270 L 2230 270 M 2050 390 L 2230 390 M 2050 510 L 2230 510 M 2050 630 L 2230 630 M 2050 750 L 2230 750 M 2050 870 L 2230 870 M 2050 990 L 2230 990 M 2050 1110 L 2230 1110 M 2050 1230 L 2230 1230 M 2050 1350 L 2230 1350 M 2050 1470 L 2230 1470 M 2050 1590 L 2230 1590 M 2050 1710 L 2230 1710 M 2050 1830 L 2230 1830 M 2050 1950 L 2230 1950"><title>lines r2 2</title></path>
+<path class="hline" d="M 900 210 L 1080 210 M 900 450 L 1080 450 M 900 690 L 1080 690 M 900 930 L 1080 930 M 900 1170 L 1080 1170 M 900 1410 L 1080 1410 M 900 1650 L 1080 1650 M 900 1890 L 1080 1890"><title>lines r3 1</title></path>
+<path class="hline" d="M 1860 210 L 2040 210 M 1860 450 L 2040 450 M 1860 690 L 2040 690 M 1860 930 L 2040 930 M 1860 1170 L 2040 1170 M 1860 1410 L 2040 1410 M 1860 1650 L 2040 1650 M 1860 1890 L 2040 1890"><title>lines r3 2</title></path>
+`
+if (!qualifying) s += `<path class="hline" d="M 1040 330 L 1220 330 M 1040 810 L 1220 810 M 1040 1290 L 1220 1290 M 1040 1770 L 1220 1770"><title>lines r4 1</title></path>
+<path class="hline" d="M 1730 330 L 1910 330 M 1730 810 L 1910 810 M 1730 1290 L 1910 1290 M 1730 1770 L 1910 1770"><title>lines r4 2</title></path>
+<path class="hline" d="M 1180 570 L 1360 570 M 1180 1530 L 1360 1530 M 1580 570 L 1760 570 M 1580 1530 L 1760 1530 M 1320 900 L 1500 900 M 1440 1200 L 1620 1200 M 1380 1070 L 1560 1070"><title>lines finals</title></path>
+`
+s += `<path class="vline" d="M 520 1955 L 520 2005 M 520 1895 L 520 1945 M 520 1835 L 520 1885 M 520 1775 L 520 1825 M 520 1715 L 520 1765 M 520 1655 L 520 1705 M 520 1595 L 520 1645 M 520 1535 L 520 1585 M 520 1475 L 520 1525 M 520 1415 L 520 1465 M 520 1355 L 520 1405 M 520 1295 L 520 1345 M 520 1235 L 520 1285 M 520 1175 L 520 1225 M 520 1115 L 520 1165 M 520 1055 L 520 1105 M 520 995 L 520 1045 M 520 935 L 520 985 M 520 875 L 520 925 M 520 815 L 520 865 M 520 755 L 520 805 M 520 695 L 520 745 M 520 635 L 520 685 M 520 575 L 520 625 M 520 515 L 520 565 M 520 455 L 520 505 M 520 395 L 520 445 M 520 335 L 520 385 M 520 275 L 520 325 M 520 215 L 520 265 M 520 155 L 520 205 M 520 95 L 520 145"><title>bracket r1 1</title></path>
+<path class="vline" d="M 2420 1955 L 2420 2005 M 2420 1895 L 2420 1945 M 2420 1835 L 2420 1885 M 2420 1775 L 2420 1825 M 2420 1715 L 2420 1765 M 2420 1655 L 2420 1705 M 2420 1595 L 2420 1645 M 2420 1535 L 2420 1585 M 2420 1475 L 2420 1525 M 2420 1415 L 2420 1465 M 2420 1355 L 2420 1405 M 2420 1295 L 2420 1345 M 2420 1235 L 2420 1285 M 2420 1175 L 2420 1225 M 2420 1115 L 2420 1165 M 2420 1055 L 2420 1105 M 2420 995 L 2420 1045 M 2420 935 L 2420 985 M 2420 875 L 2420 925 M 2420 815 L 2420 865 M 2420 755 L 2420 805 M 2420 695 L 2420 745 M 2420 635 L 2420 685 M 2420 575 L 2420 625 M 2420 515 L 2420 565 M 2420 455 L 2420 505 M 2420 395 L 2420 445 M 2420 335 L 2420 385 M 2420 275 L 2420 325 M 2420 215 L 2420 265 M 2420 155 L 2420 205 M 2420 95 L 2420 145"><title>bracket r1 2</title></path>
+<path class="vline" d="M 710 100 L 710 200 M 710 220 L 710 320 M 710 340 L 710 440 M 710 460 L 710 560 M 710 580 L 710 680 M 710 700 L 710 800 M 710 820 L 710 920 M 710 940 L 710 1040 M 710 1060 L 710 1160 M 710 1180 L 710 1280 M 710 1300 L 710 1400 M 710 1420 L 710 1520 M 710 1540 L 710 1640 M 710 1660 L 710 1760 M 710 1780 L 710 1880 M 710 1900 L 710 2000"><title>bracket r2 1</title></path>
+<path class="vline" d="M 2230 100 L 2230 200 M 2230 220 L 2230 320 M 2230 340 L 2230 440 M 2230 460 L 2230 560 M 2230 580 L 2230 680 M 2230 700 L 2230 800 M 2230 820 L 2230 920 M 2230 940 L 2230 1040 M 2230 1060 L 2230 1160 M 2230 1180 L 2230 1280 M 2230 1300 L 2230 1400 M 2230 1420 L 2230 1520 M 2230 1540 L 2230 1640 M 2230 1660 L 2230 1760 M 2230 1780 L 2230 1880 M 2230 1900 L 2230 2000"><title>bracket r2 2</title></path>
+<path class="vline" d="M 900 1810 L 900 1970 M 900 1570 L 900 1730 M 900 1330 L 900 1490 M 900 1090 L 900 1250 M 900 850 L 900 1010 M 900 610 L 900 770 M 900 370 L 900 530 M 900 130 L 900 290"><title>bracket r3 1</title></path>
+<path class="vline" d="M 2040 1810 L 2040 1970 M 2040 1570 L 2040 1730 M 2040 1330 L 2040 1490 M 2040 1090 L 2040 1250 M 2040 850 L 2040 1010 M 2040 610 L 2040 770 M 2040 370 L 2040 530 M 2040 130 L 2040 290"><title>bracket r3 2</title></path>
+`
+if (!qualifying) s += `<path class="vline" d="M 1040 260 L 1040 400 M 1040 740 L 1040 880 M 1040 1220 L 1040 1360 M 1040 1700 L 1040 1840"><title>bracket r4 1</title></path>
+<path class="vline" d="M 1910 1700 L 1910 1840 M 1910 1220 L 1910 1360 M 1910 740 L 1910 880 M 1910 260 L 1910 400"><title>bracket r4 2</title></path>
+<path class="vline" d="M 1620 630 L 1620 1470 M 1320 630 L 1320 1470 M 1760 1350 L 1760 1710 M 1760 390 L 1760 750 M 1180 1350 L 1180 1710 M 1180 390 L 1180 750"><title>bracket finals</title></path>
+`
+
 // add the SVG code for the main part of the draw sheet: the contestants names and results for the first five rounds
-let y = 100
+let y = 114
 for (let z = 0; z < positions; z++) {
 	const x = (z < 64 ? 80 : 2430)
 	const line = draw.find(d => z == d.position - 1)
@@ -790,8 +817,8 @@ for (let z = 0; z < positions; z++) {
 		const pClass = textClass(line.qualification) + (z < 64 ? " cp2" : "")
 		s += '  <text class="' + pClass + '" x="' + x + '" y="' + y + '">' + formatPosition(z + 1) + ' ' + line.name1.toUpperCase() + ' ' + line.name2 + (line.qualification ? ' (' + line.qualification + ')' : '') + '  <tspan dy="7">' + line.flag + '</tspan></text>\n'
 	}
-	if (z == 63) y = 100
-	else y = Math.round((y + 30.4)*10)/10
+	if (z == 63) y = 114
+	else y = y + 30 // Math.round((y + 30)*10)/10
 	if (z%2 == 0 && (!qualifying || competition.qualifyingRounds >= 1)) s += renderResult(z,1,x,y)
 	if (z%4 == 0 && (!qualifying || competition.qualifyingRounds >= 2)) s += renderResult(z,2,x,y)
 	if (z%8 == 0 && (!qualifying || competition.qualifyingRounds >= 3)) s += renderResult(z,3,x,y)
@@ -802,25 +829,20 @@ for (let z = 0; z < positions; z++) {
 
 if (big && !qualifying) {
 	// add the SVG code for the central part of the draw sheet: the semifinal and final results
-	s += '  <line class="lt" x1="1370" y1="1027" x2="1370" y2="1073"/>\n'
-	s += '  <line class="lt" x1="1570" y1="1027" x2="1570" y2="1073"/>\n'
-	s += '  <line class="ln" x1="1180" y1="1050" x2="1360" y2="1050"/>\n'
-	s += '  <line class="ln" x1="1370" y1="1050" x2="1570" y2="1050"/>\n'
-	s += '  <line class="ln" x1="1580" y1="1050" x2="1760" y2="1050"/>\n'
 	const rSF1 = getResult(draw.slice(0,64).find(d => d.wins[5]),6)
 	const rSF2 = getResult(draw.slice(64,128).find(d => d.wins[5]),6)
 	const rF = getResult(draw.find(d => d.wins[6]),7)
 	if (rSF1) {
-		s += '  <text class="' + textClass(rSF1.c,6) + '" x="1270" y="1043" clip-path="url(#clipSF1)">' + rSF1.a + '</text>\n'
-		s += '  <text class="p5 cp3" x="1270" y="1073">' + rSF1.b + '</text>\n'
+		s += '  <text class="' + textClass(rSF1.c,6) + '" x="1330" y="895" clip-path="url(#clipSF1)">' + rSF1.a + '</text>\n'
+		s += '  <text class="p2" x="1330" y="923">' + rSF1.b + '</text>\n'
 	}
 	if (rF) {
-		s += '  <text class="' + textClass(rF.c,7) + '" x="1470" y="1043" clip-path="url(#clipF)">' + rF.a + '</text>\n'
-		s += '  <text class="p5 cp3" x="1470" y="1073">' + rF.b + '</text>\n'
+		s += '  <text class="' + textClass(rF.c,7) + '" x="1470" y="1065">' + rF.a + '</text>\n'
+		s += '  <text class="p5" x="1470" y="1093">' + rF.b + '</text>\n'
 	}
 	if (rSF2) {
-		s += '  <text class="' + textClass(rSF2.c,6) + '" x="1670" y="1043" clip-path="url(#clipSF2)">' + rSF2.a + '</text>\n'
-		s += '  <text class="p5 cp3" x="1670" y="1073">' + rSF2.b + '</text>\n'
+		s += '  <text class="' + textClass(rSF2.c,6) + '" x="1440" y="1195" clip-path="url(#clipSF2)">' + rSF2.a + '</text>\n'
+		s += '  <text class="p2" x="1440" y="1223">' + rSF2.b + '</text>\n'
 	}
 }
 
