@@ -48,6 +48,10 @@ const tournaments = {
 				"ms" : "sr:season:102231",
 				"ws" : "sr:season:102229",
 			},
+			"2025": {
+				"ms" : "sr:season:115101",
+				"ws" : "sr:season:115103",
+			},
 		},
 	},
 	"iw": {
@@ -81,6 +85,10 @@ const tournaments = {
 				"ms" : "sr:season:111330",
 				"ws" : "sr:season:112876",
 			},
+			"2025": {
+				"ms" : "sr:season:124313",
+				"ws" : "sr:season:124131",
+			},
 		},
 	},
 	"mi": {
@@ -113,6 +121,10 @@ const tournaments = {
 			"2024": {
 				"ms" : "sr:season:111332",
 				"ws" : "sr:season:112880",
+			},
+			"2025": {
+				"ms" : "sr:season:124319",
+				"ws" : "sr:season:124135",
 			},
 		},
 	},
@@ -151,6 +163,10 @@ const tournaments = {
 				"ms" : "sr:season:111368",
 				"ws" : "sr:season:112898",
 			},
+			"2025": {
+				"ms" : "sr:season:124615",
+				"ws" : "sr:season:124163",
+			},
 		},
 	},
 	"ro": {
@@ -187,6 +203,10 @@ const tournaments = {
 			"2024": {
 				"ms" : "sr:season:111378",
 				"ws" : "sr:season:112902",
+			},
+			"2025": {
+				"ms" : "sr:season:124619",
+				"ws" : "sr:season:124167",
 			},
 		},
 	},
@@ -225,6 +245,10 @@ const tournaments = {
 				"ms" : "sr:season:106267",
 				"ws" : "sr:season:106269",
 			},
+			"2025": {
+				"ms" : "sr:season:119469",
+				"ws" : "sr:season:119471",
+			},
 		},
 	},
 	"wi": {
@@ -257,6 +281,10 @@ const tournaments = {
 			"2024": {
 				"ms" : "sr:season:107797",
 				"ws" : "sr:season:107799",
+			},
+			"2025": {
+				"ms" : "sr:season:120983",
+				"ws" : "sr:season:120985",
 			},
 		},
 	},	
@@ -295,6 +323,10 @@ const tournaments = {
 				"ms" : "sr:season:111494",
 				"ws" : "sr:season:113200",
 			},
+			"2025": {
+				"ms" : "sr:season:124689",
+				"ws" : "sr:season:124341",
+			},
 		},
 	},
 	"ci": {
@@ -332,6 +364,10 @@ const tournaments = {
 				"ms" : "sr:season:111498",
 				"ws" : "sr:season:113204",
 			},
+			"2025": {
+				"ms" : "sr:season:124409",
+				"ws" : "sr:season:124345",
+			},
 		},
 	},
 	"us": {
@@ -368,6 +404,10 @@ const tournaments = {
 			"2024": {
 				"ms" : "sr:season:110285",
 				"ws" : "sr:season:110287",
+			},
+			"2025": {
+				"ms" : "sr:season:123561",
+				"ws" : "sr:season:123559",
 			},
 		},
 	},
