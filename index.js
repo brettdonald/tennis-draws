@@ -6,7 +6,6 @@ const dataDirectory = './data'
 const parametersFileName = dataDirectory + '/parameters.txt'
 const seasonInfoFileName = dataDirectory + '/season-info.txt'
 const seasonSummaryFileName = dataDirectory + '/season-summary.txt'
-const outputFileName = dataDirectory + '/draw.svg'
 
 const qualifyingPhaseName = 'qualification'
 const mainDrawPhaseName = 'stage_1_playoff'
@@ -890,6 +889,7 @@ if (big && !qualifying) {
 s += '</svg>'
 
 // write the SVG string as a local file
+const outputFileName = dataDirectory + '/draw-' + parameterData.tournament + '-' + parameterData.event + (qualifying ? 'q': '' ) + '.svg'
 try {
 	fs.writeFileSync(outputFileName, s)
 	console.log('wrote output file ' + outputFileName)
