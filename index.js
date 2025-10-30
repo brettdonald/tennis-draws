@@ -384,12 +384,12 @@ const tournaments = {
 		"competitions": {
 			"ms" : {
 				id: "sr:competition:2983",
-				draw: {m: 56, q: 24},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 			"ws" : {
 				id: "sr:competition:8363", 
-				draw: {m: 56, q: 32},
+				draw: {m: 96, q: 48},
 				qualifyingRounds: 2,
 			},
 		},
@@ -458,6 +458,69 @@ const tournaments = {
 			"2025": {
 				"ms" : "sr:season:123561",
 				"ws" : "sr:season:123559",
+			},
+		},
+	},
+	"be": {
+		"title": "China Open",
+		"competitions": {
+			"ws" : {
+				id: "sr:competition:8843",
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
+			},
+		},
+		"seasons": {
+			"2025": {
+				"ws" : "sr:season:124371",
+			},
+		},
+	},
+	"sh": {
+		"title": "Shanghai",
+		"competitions": {
+			"ms" : {
+				id: "sr:competition:3085",
+				draw: {m: 96, q: 48},
+				qualifyingRounds: 2,
+			},
+		},
+		"seasons": {
+			"2025": {
+				"ms" : "sr:season:124443",
+			},
+			"2026": {
+				"ms" : "sr:season:135005",
+			},
+		},
+	},
+	"wu": {
+		"title": "Wuhan Open",
+		"competitions": {
+			"ws" : {
+				id: "sr:competition:11117",
+				draw: {m: 56, q: 32},
+				qualifyingRounds: 2,
+			},
+		},
+		"seasons": {
+			"2025": {
+				"ws" : "sr:season:124375",
+			},
+		},
+	},
+	"pa": {
+		"title": "Paris",
+		"competitions": {
+			"ms" : {
+				id: "sr:competition:2661",
+				draw: {m: 56, q: 28},
+				qualifyingRounds: 2,
+			},
+		},
+		"seasons": {
+			"2025": {
+				"ms" : "sr:season:124473",
 			},
 		},
 	},
