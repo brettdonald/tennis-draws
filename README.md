@@ -18,8 +18,11 @@ Executing the code requires parameters as follows:
 Valid values for `tournament_code`:
 
 * __ao__ — Australian Open
+* __do__ — Doha
+* __du__ — Dubai
 * __iw__ — Indian Wells
 * __mi__ — Miami Open
+* __mc__ — Monte Carlo
 * __ma__ — Madrid
 * __ro__ — Rome
 * __rg__ — French Open
@@ -27,6 +30,11 @@ Valid values for `tournament_code`:
 * __ca__ — Canadian Open
 * __ci__ — Cincinnati
 * __us__ — US Open
+* __be__ — Beijing
+* __sh__ — Shanghai
+* __wu__ — Wuhan
+* __pa__ — Paris
+* __ol__ — Olympics
 
 Valid values for `event_code`:
 

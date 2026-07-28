@@ -51,6 +51,10 @@ const tournaments = {
 				"ms" : "sr:season:115101",
 				"ws" : "sr:season:115103",
 			},
+			"2026": {
+				"ms" : "sr:season:128143",
+				"ws" : "sr:season:128141",
+			},
 		},
 	},
 	"do": {
@@ -66,6 +70,9 @@ const tournaments = {
 			"2025": {
 				"ws" : "sr:season:124115",
 			},
+			"2026": {
+				"ws" : "sr:season:136029",
+			},
 		},
 	},
 	"du": {
@@ -80,6 +87,9 @@ const tournaments = {
 		"seasons": {
 			"2025": {
 				"ws" : "sr:season:124119",
+			},
+			"2026": {
+				"ws" : "sr:season:136033",
 			},
 		},
 	},
@@ -118,6 +128,10 @@ const tournaments = {
 				"ms" : "sr:season:124313",
 				"ws" : "sr:season:124131",
 			},
+			"2026": {
+				"ms" : "sr:season:134087",
+				"ws" : "sr:season:136045",
+			},
 		},
 	},
 	"mi": {
@@ -155,6 +169,10 @@ const tournaments = {
 				"ms" : "sr:season:124319",
 				"ws" : "sr:season:124135",
 			},
+			"2026": {
+				"ms" : "sr:season:134091",
+				"ws" : "sr:season:136049",
+			},
 		},
 	},
 	"mc": {
@@ -175,6 +193,9 @@ const tournaments = {
 			},
 			"2025": {
 				"ms" : "sr:season:124337",
+			},
+			"2026": {
+				"ms" : "sr:season:134161",
 			},
 		},
 	},
@@ -217,6 +238,10 @@ const tournaments = {
 				"ms" : "sr:season:124615",
 				"ws" : "sr:season:124163",
 			},
+			"2026": {
+				"ms" : "sr:season:134361",
+				"ws" : "sr:season:136073",
+			},
 		},
 	},
 	"ro": {
@@ -257,6 +282,10 @@ const tournaments = {
 			"2025": {
 				"ms" : "sr:season:124619",
 				"ws" : "sr:season:124167",
+			},
+			"2026": {
+				"ms" : "sr:season:134367",
+				"ws" : "sr:season:136077",
 			},
 		},
 	},
@@ -299,6 +328,10 @@ const tournaments = {
 				"ms" : "sr:season:119469",
 				"ws" : "sr:season:119471",
 			},
+			"2026": {
+				"ms" : "sr:season:131405",
+				"ws" : "sr:season:131409",
+			},
 		},
 	},
 	"wi": {
@@ -335,6 +368,10 @@ const tournaments = {
 			"2025": {
 				"ms" : "sr:season:120983",
 				"ws" : "sr:season:120985",
+			},
+			"2026": {
+				"ms" : "sr:season:132572",
+				"ws" : "sr:season:132536",
 			},
 		},
 	},	
@@ -377,6 +414,10 @@ const tournaments = {
 				"ms" : "sr:season:124689",
 				"ws" : "sr:season:124341",
 			},
+			"2026": {
+				"ms" : "sr:season:134979",
+				"ws" : "sr:season:136164",
+			},
 		},
 	},
 	"ci": {
@@ -417,6 +458,10 @@ const tournaments = {
 			"2025": {
 				"ms" : "sr:season:124409",
 				"ws" : "sr:season:124345",
+			},
+			"2026": {
+				"ms" : "sr:season:134969",
+				"ws" : "sr:season:136168",
 			},
 		},
 	},
@@ -459,6 +504,10 @@ const tournaments = {
 				"ms" : "sr:season:123561",
 				"ws" : "sr:season:123559",
 			},
+			"2026": {
+				"ms" : "sr:season:134885",
+				"ws" : "sr:season:134881",
+			},
 		},
 	},
 	"be": {
@@ -473,6 +522,9 @@ const tournaments = {
 		"seasons": {
 			"2025": {
 				"ws" : "sr:season:124371",
+			},
+			"2026": {
+				"ws" : "sr:season:136196",
 			},
 		},
 	},
@@ -507,6 +559,9 @@ const tournaments = {
 			"2025": {
 				"ws" : "sr:season:124375",
 			},
+			"2026": {
+				"ws" : "sr:season:136222",
+			},
 		},
 	},
 	"pa": {
@@ -521,6 +576,9 @@ const tournaments = {
 		"seasons": {
 			"2025": {
 				"ms" : "sr:season:124473",
+			},
+			"2026": {
+				"ms" : "sr:season:135039",
 			},
 		},
 	},
@@ -809,8 +867,8 @@ if (draw.length < positions) {
 	const dl = draw.length
 	let z = 0
 	for (let i=0; i<positions; i++) {
-		if (dl == 0) {							// if the draw has not yet happened
-			draw.push({							// add a row containing just the position
+		if (dl == 0) {							      // if the draw has not yet happened
+			draw.push({							        // add a row containing just the position
 				'id': null,
 				'position': i + 1,
 				'name1': '',
@@ -821,7 +879,7 @@ if (draw.length < positions) {
 			})
 		}
 		else if (i >= draw.length) {			// if the draw sheet has more rows than the actual draw 
-			draw.push({							// add a totally blank row
+			draw.push({							        // add a totally blank row
 				'id': null,
 				'position': '',
 				'name1': '',
@@ -832,7 +890,7 @@ if (draw.length < positions) {
 			})
 		}
 		else if (draw[i].position != i+1) {		// if the draw doesn't have a player in this position (the draw has happened but qualifying is still under way)
-			draw.splice(i,0,{					// add a row containing the position and the word 'Qualifier'
+			draw.splice(i,0,{					          // add a row containing the position and the word 'Qualifier'
 				'id': null,
 				'position': i + 1,
 				'name1': 'Qualifier',
