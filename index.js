@@ -16,7 +16,7 @@ const tournaments = {
 		"title": "Australian Open",
 		"competitions": {
 			"ms" : {
-				id: "sr:competition:2567",	// competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
+				id: "sr:competition:2567",        // competition IDs are available from the Competitions endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competitions)
 				draw: {m: 128, q: 128},
 				qualifyingRounds: 3,
 			},
@@ -28,7 +28,7 @@ const tournaments = {
 		},
 		"seasons": {
 			"2020": {
-				"ms" : "sr:season:63591",	// season IDs are available from the Competition Seasons endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons)
+				"ms" : "sr:season:63591",         // season IDs are available from the Competition Seasons endpoint: https://developer.sportradar.com/docs/read/tennis/Tennis_v3#competition-seasons)
 				"ws" : "sr:season:63593",
 			},
 			"2021": {
@@ -55,6 +55,10 @@ const tournaments = {
 				"ms" : "sr:season:128143",
 				"ws" : "sr:season:128141",
 			},
+			"2027": {
+				"ms" : "sr:season:139366",
+				"ws" : "sr:season:139368",
+			},
 		},
 	},
 	"do": {
@@ -67,6 +71,9 @@ const tournaments = {
 			},
 		},
 		"seasons": {
+			"2024": {
+				"ws" : "sr:season:112858",
+			},
 			"2025": {
 				"ws" : "sr:season:124115",
 			},
@@ -85,6 +92,9 @@ const tournaments = {
 			},
 		},
 		"seasons": {
+			"2024": {
+				"ws" : "sr:season:112862",
+			},
 			"2025": {
 				"ws" : "sr:season:124119",
 			},
@@ -132,6 +142,12 @@ const tournaments = {
 				"ms" : "sr:season:134087",
 				"ws" : "sr:season:136045",
 			},
+/*
+			"2027": {
+				"ms" : "sr:season:144874",
+				"ws" : "sr:season:??????",
+			},
+*/
 		},
 	},
 	"mi": {
@@ -173,6 +189,12 @@ const tournaments = {
 				"ms" : "sr:season:134091",
 				"ws" : "sr:season:136049",
 			},
+/*
+			"2027": {
+				"ms" : "sr:season:144880",
+				"ws" : "sr:season:??????",
+			},
+*/
 		},
 	},
 	"mc": {
@@ -196,6 +218,9 @@ const tournaments = {
 			},
 			"2026": {
 				"ms" : "sr:season:134161",
+			},
+			"2027": {
+				"ms" : "sr:season:146290",
 			},
 		},
 	},
@@ -544,6 +569,9 @@ const tournaments = {
 			"2026": {
 				"ms" : "sr:season:135005",
 			},
+			"2027": {
+				"ms" : "sr:season:147202",
+			},			
 		},
 	},
 	"wu": {
@@ -556,6 +584,9 @@ const tournaments = {
 			},
 		},
 		"seasons": {
+			"2024": {
+				"ws" : "sr:season:117351",
+			},
 			"2025": {
 				"ws" : "sr:season:124375",
 			},
@@ -579,6 +610,9 @@ const tournaments = {
 			},
 			"2026": {
 				"ms" : "sr:season:135039",
+			},
+			"2027": {
+				"ms" : "sr:season:147216",
 			},
 		},
 	},
@@ -667,7 +701,7 @@ const formatScores = (a) => {
 				s += b.away_score.toString() + b.home_score.toString() + ' '
 		})
 	}
-//	else s += 'not available'
+	else s += 'not available'                                                                             // needed for walkovers in older data 
 	s += (a.sport_event_status.match_status != "ended" ? a.sport_event_status.match_status : '')
 	return s.trim()
 }
